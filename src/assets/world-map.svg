@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- North America -->
+  <path d="M120,60 C150,50 200,60 250,90 C290,120 300,160 260,200 C230,230 200,270 170,260 C150,230 130,200 110,150 C100,100 110,70 120,60 Z" fill="currentColor" fill-opacity="0.08"/>
+  <!-- South America -->
+  <path d="M230,270 C270,280 300,320 310,370 C310,430 270,470 240,460 C220,430 210,370 220,320 C220,290 225,275 230,270 Z" fill="currentColor" fill-opacity="0.08"/>
+  <!-- Europe -->
+  <path d="M470,70 C520,60 560,80 560,120 C540,150 500,160 470,140 C450,110 460,80 470,70 Z" fill="currentColor" fill-opacity="0.08"/>
+  <!-- Africa -->
+  <path d="M470,160 C530,160 570,210 570,280 C560,350 520,390 480,380 C450,330 440,260 450,200 C455,170 465,160 470,160 Z" fill="currentColor" fill-opacity="0.08"/>
+  <!-- Asia -->
+  <path d="M570,70 C660,50 800,90 850,150 C860,220 800,270 730,260 C660,280 630,220 600,160 C580,130 570,90 570,70 Z" fill="currentColor" fill-opacity="0.08"/>
+  <!-- Australia -->
+  <path d="M760,320 C830,315 870,360 860,405 C830,425 780,420 760,390 C750,360 755,330 760,320 Z" fill="currentColor" fill-opacity="0.08"/>
+</svg>
