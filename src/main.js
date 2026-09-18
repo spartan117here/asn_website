@@ -10,99 +10,110 @@ if (typeof history !== 'undefined' && 'scrollRestoration' in history) {
 
 window.addEventListener('load', () => {
   window.scrollTo(0, 0);
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.refresh();
+  }
 });
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Update Copyright Year
-const yearEl = document.getElementById('year');
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
-
 // -------------------------------------------------------------------
-// 1. Sticky Navigation Bar with Elevation on Scroll
+// 1. Copyright Year Initialization
 // -------------------------------------------------------------------
-// 1. Sticky/Fixed Navigation Bar with Elevation on Scroll
-// -------------------------------------------------------------------
-const siteNav = document.getElementById('siteNav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) {
-    siteNav?.classList.add('site-nav--scrolled');
-  } else {
-    siteNav?.classList.remove('site-nav--scrolled');
-  }
-}, { passive: true });
-
-// -------------------------------------------------------------------
-// 2. Mobile Menu & Products Dropdown Interaction (Mobile-Safe Scroll Lock)
-// -------------------------------------------------------------------
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-const navDropdown = document.querySelector('.nav-dropdown');
-const dropdownToggle = navDropdown?.querySelector('.nav-link--dropdown');
-
-let isMobileMenuOpen = false;
-let savedScrollY = 0;
-
-function resetMobileProducts() {
-  if (navDropdown) {
-    navDropdown.classList.remove('nav-dropdown--open');
-    const chevron = navDropdown.querySelector('.dropdown-chevron');
-    if (chevron) chevron.style.transform = '';
+function initCopyrightYear() {
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
   }
 }
 
-// Touch event handler to prevent background scroll without moving window.scrollY
-function preventBackgroundScroll(e) {
-  if (navMenu && navMenu.contains(e.target)) {
-    return; // Allow touch scrolling inside the mobile navigation menu panel
+// -------------------------------------------------------------------
+// 2. Sticky/Fixed Navigation Bar with Elevation on Scroll
+// -------------------------------------------------------------------
+function initStickyNav() {
+  const siteNav = document.getElementById('siteNav');
+  if (!siteNav) return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      siteNav.classList.add('site-nav--scrolled');
+    } else {
+      siteNav.classList.remove('site-nav--scrolled');
+    }
+  }, { passive: true });
+}
+
+// -------------------------------------------------------------------
+// 3. Mobile Menu & Products Dropdown Interaction (Mobile-Safe Scroll Lock)
+// -------------------------------------------------------------------
+function initMobileMenu() {
+  const siteNav = document.getElementById('siteNav');
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  const navDropdown = document.querySelector('.nav-dropdown');
+  const dropdownToggle = navDropdown?.querySelector('.nav-link--dropdown');
+
+  if (!menuToggle || !navMenu) return;
+
+  let isMobileMenuOpen = false;
+  let savedScrollY = 0;
+
+  function resetMobileProducts() {
+    if (navDropdown) {
+      navDropdown.classList.remove('nav-dropdown--open');
+      const chevron = navDropdown.querySelector('.dropdown-chevron');
+      if (chevron) chevron.style.transform = '';
+    }
   }
-  e.preventDefault();
-}
 
-function openMobileMenu() {
-  isMobileMenuOpen = true;
-  savedScrollY = window.scrollY || window.pageYOffset || 0;
-
-  navMenu?.classList.add('site-nav__links--open');
-  menuToggle?.classList.add('menu-toggle--open');
-  menuToggle?.setAttribute('aria-expanded', 'true');
-  siteNav?.classList.add('site-nav--menu-open');
-  document.body.classList.add('mobile-nav-locked');
-
-  resetMobileProducts();
-  window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
-}
-
-function closeMobileMenu() {
-  if (!isMobileMenuOpen) return;
-  isMobileMenuOpen = false;
-
-  navMenu?.classList.remove('site-nav__links--open');
-  menuToggle?.classList.remove('menu-toggle--open');
-  menuToggle?.setAttribute('aria-expanded', 'false');
-  siteNav?.classList.remove('site-nav--menu-open');
-  document.body.classList.remove('mobile-nav-locked');
-
-  window.removeEventListener('touchmove', preventBackgroundScroll);
-  resetMobileProducts();
-
-  // Ensure scroll position remains exactly where the user was
-  if (typeof savedScrollY === 'number') {
-    window.scrollTo(0, savedScrollY);
+  // Touch event handler to prevent background scroll without moving window.scrollY
+  function preventBackgroundScroll(e) {
+    if (navMenu && navMenu.contains(e.target)) {
+      return; // Allow touch scrolling inside the mobile navigation menu panel
+    }
+    e.preventDefault();
   }
-}
 
-function toggleMobileMenu() {
-  if (isMobileMenuOpen) {
-    closeMobileMenu();
-  } else {
-    openMobileMenu();
+  function openMobileMenu() {
+    isMobileMenuOpen = true;
+    savedScrollY = window.scrollY || window.pageYOffset || 0;
+
+    navMenu.classList.add('site-nav__links--open');
+    menuToggle.classList.add('menu-toggle--open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    siteNav?.classList.add('site-nav--menu-open');
+    document.body.classList.add('mobile-nav-locked');
+
+    resetMobileProducts();
+    window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
   }
-}
 
-if (menuToggle && navMenu) {
+  function closeMobileMenu() {
+    if (!isMobileMenuOpen) return;
+    isMobileMenuOpen = false;
+
+    navMenu.classList.remove('site-nav__links--open');
+    menuToggle.classList.remove('menu-toggle--open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    siteNav?.classList.remove('site-nav--menu-open');
+    document.body.classList.remove('mobile-nav-locked');
+
+    window.removeEventListener('touchmove', preventBackgroundScroll);
+    resetMobileProducts();
+
+    // Ensure scroll position remains exactly where the user was
+    if (typeof savedScrollY === 'number') {
+      window.scrollTo(0, savedScrollY);
+    }
+  }
+
+  function toggleMobileMenu() {
+    if (isMobileMenuOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+
   menuToggle.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMobileMenu();
@@ -143,66 +154,67 @@ if (menuToggle && navMenu) {
 }
 
 // -------------------------------------------------------------------
-// 3. Interactive Quote / Contact Modal
+// 4. Interactive Quote / Contact Modal
 // -------------------------------------------------------------------
-const quoteModal = document.getElementById('quoteModal');
-const modalBackdrop = document.getElementById('modalBackdrop');
-const modalClose = document.getElementById('modalClose');
-const quoteForm = document.getElementById('quoteForm');
-const formFeedback = document.getElementById('formFeedback');
-const quoteCategory = document.getElementById('quoteCategory');
+function initQuoteModal() {
+  const quoteModal = document.getElementById('quoteModal');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalClose = document.getElementById('modalClose');
+  const formFeedback = document.getElementById('formFeedback');
+  const quoteCategory = document.getElementById('quoteCategory');
 
-function openModal(category = '') {
-  if (!quoteModal) return;
-  quoteModal.classList.add('quote-modal--active');
-  quoteModal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+  function openModal(category = '') {
+    if (!quoteModal) return;
+    quoteModal.classList.add('quote-modal--active');
+    quoteModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
 
-  if (category && quoteCategory) {
-    for (let i = 0; i < quoteCategory.options.length; i++) {
-      if (quoteCategory.options[i].value === category) {
-        quoteCategory.selectedIndex = i;
-        break;
+    if (category && quoteCategory) {
+      for (let i = 0; i < quoteCategory.options.length; i++) {
+        if (quoteCategory.options[i].value === category) {
+          quoteCategory.selectedIndex = i;
+          break;
+        }
       }
     }
   }
-}
 
-function closeModal() {
-  if (!quoteModal) return;
-  quoteModal.classList.remove('quote-modal--active');
-  quoteModal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-  if (formFeedback) formFeedback.textContent = '';
-}
-
-// Attach open handlers
-document.querySelectorAll('.open-quote-modal').forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal();
-  });
-});
-
-// Product card clicks open modal with pre-selected category
-document.querySelectorAll('.product-card').forEach((card) => {
-  card.addEventListener('click', () => {
-    const cat = card.getAttribute('data-category') || '';
-    openModal(cat);
-  });
-});
-
-modalClose?.addEventListener('click', closeModal);
-modalBackdrop?.addEventListener('click', closeModal);
-
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && quoteModal?.classList.contains('quote-modal--active')) {
-    closeModal();
+  function closeModal() {
+    if (!quoteModal) return;
+    quoteModal.classList.remove('quote-modal--active');
+    quoteModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (formFeedback) formFeedback.textContent = '';
   }
-});
+
+  // Attach open handlers
+  document.querySelectorAll('.open-quote-modal').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Product card clicks open modal with pre-selected category
+  document.querySelectorAll('.product-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const cat = card.getAttribute('data-category') || '';
+      openModal(cat);
+    });
+  });
+
+  modalClose?.addEventListener('click', closeModal);
+  modalBackdrop?.addEventListener('click', closeModal);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && quoteModal?.classList.contains('quote-modal--active')) {
+      closeModal();
+    }
+  });
+}
 
 // ===================================================================
-// 3. Professional WhatsApp Business Enquiry Submission
+// 5. Professional WhatsApp Business Enquiry Submission
 // Target Company WhatsApp: +91 90873 05577 (wa.me/919087305577)
 // ===================================================================
 const COMPANY_WHATSAPP_NUMBER = '919087305577';
@@ -428,76 +440,87 @@ function setupWhatsAppForm(form, feedbackEl, isModal = false) {
   });
 }
 
-// Initialize WhatsApp submission for Contact Section Form
-const contactForm = document.getElementById('contactForm');
-const contactFormFeedback = document.getElementById('contactFormFeedback');
-setupWhatsAppForm(contactForm, contactFormFeedback, false);
+function initWhatsAppForms() {
+  const contactForm = document.getElementById('contactForm');
+  const contactFormFeedback = document.getElementById('contactFormFeedback');
+  if (contactForm) {
+    setupWhatsAppForm(contactForm, contactFormFeedback, false);
+  }
 
-// Initialize WhatsApp submission for Quote Modal Form
-setupWhatsAppForm(quoteForm, formFeedback, true);
-
-
-// -------------------------------------------------------------------
-const statNumbers = document.querySelectorAll('.stat-card__number');
-
-function animateCounters() {
-  statNumbers.forEach((el) => {
-    const target = parseInt(el.getAttribute('data-target') || '0', 10);
-    const suffix = el.getAttribute('data-suffix') || '';
-    if (isNaN(target)) return;
-
-    let count = 0;
-    const duration = 1200; // ms
-    const stepTime = 16;
-    const totalSteps = duration / stepTime;
-    const stepIncrement = target / totalSteps;
-
-    const timer = setInterval(() => {
-      count += stepIncrement;
-      if (count >= target) {
-        el.textContent = target + suffix;
-        clearInterval(timer);
-      } else {
-        el.textContent = Math.floor(count) + suffix;
-      }
-    }, stepTime);
-  });
-}
-
-if ('IntersectionObserver' in window) {
-  let animated = false;
-  const whyChooseSection = document.getElementById('why-choose');
-  if (whyChooseSection) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !animated) {
-            animated = true;
-            animateCounters();
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(whyChooseSection);
+  const quoteForm = document.getElementById('quoteForm');
+  const quoteFeedback = document.getElementById('formFeedback');
+  if (quoteForm) {
+    setupWhatsAppForm(quoteForm, quoteFeedback, true);
   }
 }
 
 // -------------------------------------------------------------------
-// 5. GSAP Premium Image Reveals & Entrance Animations
+// 6. Statistics Counter Animation
 // -------------------------------------------------------------------
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function initCounters() {
+  const statNumbers = document.querySelectorAll('.stat-card__number');
+  if (!statNumbers.length) return;
 
-if (!prefersReducedMotion && typeof gsap !== 'undefined') {
+  function animateCounters() {
+    statNumbers.forEach((el) => {
+      const target = parseInt(el.getAttribute('data-target') || '0', 10);
+      const suffix = el.getAttribute('data-suffix') || '';
+      if (isNaN(target)) return;
+
+      let count = 0;
+      const duration = 1200; // ms
+      const stepTime = 16;
+      const totalSteps = duration / stepTime;
+      const stepIncrement = target / totalSteps;
+
+      const timer = setInterval(() => {
+        count += stepIncrement;
+        if (count >= target) {
+          el.textContent = target + suffix;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(count) + suffix;
+        }
+      }, stepTime);
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    let animated = false;
+    const whyChooseSection = document.getElementById('why-choose');
+    if (whyChooseSection) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !animated) {
+              animated = true;
+              animateCounters();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(whyChooseSection);
+    }
+  } else {
+    animateCounters();
+  }
+}
+
+// -------------------------------------------------------------------
+// 7. GSAP Premium Image Reveals & Entrance Animations
+// -------------------------------------------------------------------
+function initImageReveals() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || typeof gsap === 'undefined') return;
+
   // Hero text subtle entrance
   gsap.from('.hero__title', { y: 15, duration: 0.7, ease: 'power2.out' });
   gsap.from('.hero__lead', { y: 10, duration: 0.7, delay: 0.1, ease: 'power2.out' });
   gsap.from('.hero__buttons', { y: 10, duration: 0.6, delay: 0.2, ease: 'power2.out' });
 
-  // 1. Hero background photo renders immediately at 100% native resolution without scale/opacity distortion
-
-  // 2. Individual photographic image containers (ScrollTrigger at ~85% viewport)
+  // Individual photographic image containers (ScrollTrigger at ~85% viewport)
   const singleRevealSelectors = [
     '.about-card-visual__wrapper',
     '.about-quote-card__image-box',
@@ -535,11 +558,8 @@ if (!prefersReducedMotion && typeof gsap !== 'undefined') {
     });
   });
 
-  // 3. Products Grid: Signature Focus Pull Reveal
-  // Optical rack-focus: blurred & desaturated at 92% scale racking into sharp, vibrant 100% focus
-  // Completely free of directional translation (x/y: 0) across all devices
+  // Products Grid: Signature Focus Pull Reveal
   const productCards = gsap.utils.toArray('.products-grid .product-card');
-
   if (productCards.length > 0) {
     const prodImgs = gsap.utils.toArray('.products-grid .product-card__thumb img');
     const prodTitles = gsap.utils.toArray('.products-grid .product-card__title');
@@ -557,7 +577,7 @@ if (!prefersReducedMotion && typeof gsap !== 'undefined') {
       start: 'top 80%',
       once: true,
       onEnter: () => {
-        // Step 1: Optical rack-focus: blur and desaturation clear to razor sharpness
+        // Step 1: Optical rack-focus
         gsap.to(prodImgs, {
           filter: 'blur(0px) grayscale(0%) brightness(1)',
           scale: 1.0,
@@ -570,7 +590,7 @@ if (!prefersReducedMotion && typeof gsap !== 'undefined') {
           }
         });
 
-        // Step 2: Clean title fade in place (no directional translation)
+        // Step 2: Clean title fade in place
         gsap.to(prodTitles, {
           opacity: 1,
           duration: 0.6,
@@ -587,9 +607,7 @@ if (!prefersReducedMotion && typeof gsap !== 'undefined') {
 }
 
 // -------------------------------------------------------------------
-// 6. Ship & Shipping Motion Animation ("Connecting Businesses Across Borders" card)
-// Desktop: Interactive hover cinemagraph (mouseenter / mouseleave)
-// Mobile / Tablet: In-viewport auto-play via ScrollTrigger + touch tap
+// 8. Ship & Shipping Motion Animation ("Connecting Businesses Across Borders" card)
 // -------------------------------------------------------------------
 function initShipHover() {
   const shipImageBox = document.getElementById('shipImageBox');
@@ -598,7 +616,6 @@ function initShipHover() {
   const shipWaterTrack = document.getElementById('shipWaterTrack');
 
   if (!shipImageBox || !shipImg) {
-    console.warn('[ASN] Ship hover elements not found:', { shipImageBox, shipImg });
     return;
   }
 
@@ -675,7 +692,6 @@ function initShipHover() {
   });
 
   shipImageBox.addEventListener('mouseleave', () => {
-    // On desktop, mouse leave returns ship to resting state
     const isTouchOnly = window.matchMedia('(hover: none)').matches;
     if (!isTouchOnly) {
       stopShipAnimation();
@@ -719,17 +735,9 @@ function initShipHover() {
   }, { passive: true });
 }
 
-// Initialize ship hover
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initShipHover);
-} else {
-  initShipHover();
-}
-
 // -------------------------------------------------------------------
-// 7. Mobile-Only Scroll-Synchronized Global Trade Animation
+// 9. Scroll-Synchronized Global Trade Animation
 // SCROLL POSITION = ANIMATION PROGRESS (Forward, Pause, Reverse Scrubbing)
-// Strictly mobile only (<= 768px). Desktop remains 100% untouched.
 // -------------------------------------------------------------------
 function initGlobalTradeScrollAnimation() {
   const scrollSpace = document.getElementById('globalTradeScrollSpace');
@@ -795,20 +803,33 @@ function initGlobalTradeScrollAnimation() {
   const textSubtitle = card?.querySelector('.watermark-sub');
 
   const allRoutes = [routeInMe, routeMeEu, routeInSea, routeInAf, routeInEa, routeEuNa, routeLoop];
-  const allParticles = [partInMe, partMeEu, partInSea, partInAf, partInEa, partEuNa];
 
   const routeLens = new Map();
   function getRouteLen(el) {
     if (!el) return 100;
     if (routeLens.has(el)) return routeLens.get(el);
     try {
-      const l = el.getTotalLength();
-      if (l && l > 0) {
-        routeLens.set(el, l);
-        return l;
+      if (typeof el.getTotalLength === 'function') {
+        const l = el.getTotalLength();
+        if (l && l > 0) {
+          routeLens.set(el, l);
+          return l;
+        }
       }
     } catch (e) {}
     return 100;
+  }
+
+  // Safe wrapper for getPointAtLength to protect against unrendered SVG geometry exceptions
+  function getSafePointAtLength(route, dist) {
+    if (!route || typeof route.getPointAtLength !== 'function') return { x: 0, y: 0 };
+    try {
+      const pt = route.getPointAtLength(dist);
+      if (pt && typeof pt.x === 'number' && typeof pt.y === 'number') {
+        return pt;
+      }
+    } catch (e) {}
+    return { x: 0, y: 0 };
   }
 
   function measureAndInitRoutes() {
@@ -816,8 +837,7 @@ function initGlobalTradeScrollAnimation() {
     allRoutes.forEach(r => {
       if (r) {
         try {
-          const len = r.getTotalLength() || 100;
-          routeLens.set(r, len);
+          const len = getRouteLen(r);
           r.style.strokeDasharray = `${len}`;
           r.style.strokeDashoffset = `${len}`;
         } catch (e) {
@@ -890,13 +910,13 @@ function initGlobalTradeScrollAnimation() {
     if (particle) {
       if (t > 0 && t < 1) {
         // In transit: follows exact path curve
-        const pt = route.getPointAtLength(t * len);
+        const pt = getSafePointAtLength(route, t * len);
         particle.setAttribute('cx', pt.x);
         particle.setAttribute('cy', pt.y);
         particle.setAttribute('opacity', '1');
       } else if (t >= 1 && tDissolve && progress < tDissolve) {
         // Destination reached: sits at destination node before gentle dissolve
-        const pt = route.getPointAtLength(len);
+        const pt = getSafePointAtLength(route, len);
         particle.setAttribute('cx', pt.x);
         particle.setAttribute('cy', pt.y);
         const pDissolve = mapRange(progress, tEnd, tDissolve);
@@ -915,120 +935,118 @@ function initGlobalTradeScrollAnimation() {
     if (Math.abs(progress - lastProgress) < 0.0003) return;
     lastProgress = progress;
 
-    // ── STAGE 0: Origin Node (India) Awakens (0.00 - 0.07) ──
-    if (nodeIndia) {
-      if (progress < 0.01) {
-        nodeIndia.style.opacity = '0';
-        nodeIndia.setAttribute('transform', 'translate(705, 248) scale(0.4)');
-      } else if (progress < 0.07) {
-        const t = mapRange(progress, 0.01, 0.07);
-        const s = 0.4 + 0.75 * t; // 0.4 -> 1.15
-        nodeIndia.style.opacity = `${t}`;
-        nodeIndia.setAttribute('transform', `translate(705, 248) scale(${s})`);
-      } else {
-        nodeIndia.style.opacity = '1';
-        nodeIndia.setAttribute('transform', 'translate(705, 248) scale(1)');
+    try {
+      // ── STAGE 0: Origin Node (India) Awakens (0.00 - 0.07) ──
+      if (nodeIndia) {
+        if (progress < 0.01) {
+          nodeIndia.style.opacity = '0';
+          nodeIndia.setAttribute('transform', 'translate(705, 248) scale(0.4)');
+        } else if (progress < 0.07) {
+          const t = mapRange(progress, 0.01, 0.07);
+          const s = 0.4 + 0.75 * t; // 0.4 -> 1.15
+          nodeIndia.style.opacity = `${t}`;
+          nodeIndia.setAttribute('transform', `translate(705, 248) scale(${s})`);
+        } else {
+          nodeIndia.style.opacity = '1';
+          nodeIndia.setAttribute('transform', 'translate(705, 248) scale(1)');
+        }
       }
-    }
 
-    // ── STAGE 1: Journey 1 — India -> Middle East (0.07 - 0.20) ──
-    // Particle travels (705, 248) -> (595, 205). Middle East blooms (0.16 - 0.24).
-    updateJourney(routeInMe, partInMe, progress, 0.07, 0.18, 0.22);
-    updateNode(nodeMe, 595, 205, progress, 0.16, 0.20, 0.24);
+      // ── STAGE 1: Journey 1 — India -> Middle East (0.07 - 0.20) ──
+      updateJourney(routeInMe, partInMe, progress, 0.07, 0.18, 0.22);
+      updateNode(nodeMe, 595, 205, progress, 0.16, 0.20, 0.24);
 
-    // ── STAGE 2: Journey 2 — Middle East -> Europe (0.22 - 0.35) ──
-    // Particle travels (595, 205) -> (515, 135). Europe blooms (0.30 - 0.38).
-    updateJourney(routeMeEu, partMeEu, progress, 0.22, 0.32, 0.36);
-    updateNode(nodeEurope, 515, 135, progress, 0.30, 0.34, 0.38);
+      // ── STAGE 2: Journey 2 — Middle East -> Europe (0.22 - 0.35) ──
+      updateJourney(routeMeEu, partMeEu, progress, 0.22, 0.32, 0.36);
+      updateNode(nodeEurope, 515, 135, progress, 0.30, 0.34, 0.38);
 
-    // ── STAGE 3: Journey 3 — India -> Southeast Asia (0.36 - 0.49) ──
-    // Particle travels (705, 248) -> (795, 295). SE Asia blooms (0.44 - 0.52).
-    updateJourney(routeInSea, partInSea, progress, 0.36, 0.46, 0.50);
-    updateNode(nodeSea, 795, 295, progress, 0.44, 0.48, 0.52);
+      // ── STAGE 3: Journey 3 — India -> Southeast Asia (0.36 - 0.49) ──
+      updateJourney(routeInSea, partInSea, progress, 0.36, 0.46, 0.50);
+      updateNode(nodeSea, 795, 295, progress, 0.44, 0.48, 0.52);
 
-    // ── STAGE 4: Journey 4 — India -> Africa (0.50 - 0.63) ──
-    // Particle & cargo ship travel (705, 248) -> (585, 320). Africa blooms (0.58 - 0.66).
-    updateJourney(routeInAf, partInAf, progress, 0.50, 0.60, 0.64);
-    updateNode(nodeAf, 585, 320, progress, 0.58, 0.62, 0.66);
+      // ── STAGE 4: Journey 4 — India -> Africa (0.50 - 0.63) ──
+      updateJourney(routeInAf, partInAf, progress, 0.50, 0.60, 0.64);
+      updateNode(nodeAf, 585, 320, progress, 0.58, 0.62, 0.66);
 
-    // Cargo ship along maritime lane
-    if (ship && routeInAf) {
-      const lenAf = getRouteLen(routeInAf);
-      const tAf = mapRange(progress, 0.50, 0.60);
-      if (tAf > 0 && tAf <= 1) {
-        const d = tAf * lenAf;
-        const pt = routeInAf.getPointAtLength(d);
-        const ptNext = routeInAf.getPointAtLength(Math.min(lenAf, d + 2));
-        const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
-        ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.95)`);
-        ship.setAttribute('opacity', '1');
-      } else if (progress > 0.60) {
-        const pt = routeInAf.getPointAtLength(lenAf);
-        ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) scale(0.85)`);
-        ship.setAttribute('opacity', '0.75');
-      } else {
-        ship.setAttribute('opacity', '0');
+      // Cargo ship along maritime lane
+      if (ship && routeInAf) {
+        const lenAf = getRouteLen(routeInAf);
+        const tAf = mapRange(progress, 0.50, 0.60);
+        if (tAf > 0 && tAf <= 1) {
+          const d = tAf * lenAf;
+          const pt = getSafePointAtLength(routeInAf, d);
+          const ptNext = getSafePointAtLength(routeInAf, Math.min(lenAf, d + 2));
+          const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
+          ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.95)`);
+          ship.setAttribute('opacity', '1');
+        } else if (progress > 0.60) {
+          const pt = getSafePointAtLength(routeInAf, lenAf);
+          ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) scale(0.85)`);
+          ship.setAttribute('opacity', '0.75');
+        } else {
+          ship.setAttribute('opacity', '0');
+        }
       }
-    }
 
-    // ── STAGE 5: Journey 5 — India -> East Asia (0.64 - 0.76) ──
-    // Particle travels (705, 248) -> (825, 195). East Asia blooms (0.71 - 0.79).
-    updateJourney(routeInEa, partInEa, progress, 0.64, 0.73, 0.77);
-    updateNode(nodeEa, 825, 195, progress, 0.71, 0.75, 0.79);
+      // ── STAGE 5: Journey 5 — India -> East Asia (0.64 - 0.76) ──
+      updateJourney(routeInEa, partInEa, progress, 0.64, 0.73, 0.77);
+      updateNode(nodeEa, 825, 195, progress, 0.71, 0.75, 0.79);
 
-    // ── STAGE 6: Journey 6 — Europe -> North America (0.77 - 0.89) ──
-    // Particle & aircraft travel transatlantic (515, 135) -> (285, 180). North America blooms (0.84 - 0.92).
-    updateJourney(routeEuNa, partEuNa, progress, 0.77, 0.86, 0.90);
-    updateNode(nodeNa, 285, 180, progress, 0.84, 0.88, 0.92);
+      // ── STAGE 6: Journey 6 — Europe -> North America (0.77 - 0.89) ──
+      updateJourney(routeEuNa, partEuNa, progress, 0.77, 0.86, 0.90);
+      updateNode(nodeNa, 285, 180, progress, 0.84, 0.88, 0.92);
 
-    // Aircraft indicator along transatlantic route
-    if (aircraft && routeEuNa) {
-      const lenEuNa = getRouteLen(routeEuNa);
-      const tEuNa = mapRange(progress, 0.77, 0.86);
-      if (tEuNa > 0 && tEuNa <= 1) {
-        const d = tEuNa * lenEuNa;
-        const pt = routeEuNa.getPointAtLength(d);
-        const ptNext = routeEuNa.getPointAtLength(Math.min(lenEuNa, d + 2));
-        const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI) + 90;
-        aircraft.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.95)`);
-        aircraft.setAttribute('opacity', '1');
-      } else if (progress > 0.86) {
-        const pt = routeEuNa.getPointAtLength(lenEuNa);
-        aircraft.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(-90) scale(0.9)`);
-        aircraft.setAttribute('opacity', '0.75');
-      } else {
-        aircraft.setAttribute('opacity', '0');
+      // Aircraft indicator along transatlantic route
+      if (aircraft && routeEuNa) {
+        const lenEuNa = getRouteLen(routeEuNa);
+        const tEuNa = mapRange(progress, 0.77, 0.86);
+        if (tEuNa > 0 && tEuNa <= 1) {
+          const d = tEuNa * lenEuNa;
+          const pt = getSafePointAtLength(routeEuNa, d);
+          const ptNext = getSafePointAtLength(routeEuNa, Math.min(lenEuNa, d + 2));
+          const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI) + 90;
+          aircraft.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.95)`);
+          aircraft.setAttribute('opacity', '1');
+        } else if (progress > 0.86) {
+          const pt = getSafePointAtLength(routeEuNa, lenEuNa);
+          aircraft.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(-90) scale(0.9)`);
+          aircraft.setAttribute('opacity', '0.75');
+        } else {
+          aircraft.setAttribute('opacity', '0');
+        }
       }
-    }
 
-    // ── STAGE 7: Maritime Connecting Loop & Complete Global Network (0.88 - 1.00) ──
-    if (routeLoop) {
-      const lenLoop = getRouteLen(routeLoop);
-      const tLoop = mapRange(progress, 0.88, 0.98);
-      routeLoop.style.strokeDashoffset = `${lenLoop * (1 - tLoop)}`;
-      routeLoop.style.opacity = progress >= 0.88 ? '0.55' : '0.1';
-    }
+      // ── STAGE 7: Maritime Connecting Loop & Complete Global Network (0.88 - 1.00) ──
+      if (routeLoop) {
+        const lenLoop = getRouteLen(routeLoop);
+        const tLoop = mapRange(progress, 0.88, 0.98);
+        routeLoop.style.strokeDashoffset = `${lenLoop * (1 - tLoop)}`;
+        routeLoop.style.opacity = progress >= 0.88 ? '0.55' : '0.1';
+      }
 
-    // Synchronous subtle glow across all nodes in final network
-    if (progress >= 0.94) {
-      const pPulse = mapRange(progress, 0.94, 1.00);
-      svg.querySelectorAll('.node-ring').forEach(ring => {
-        ring.style.opacity = `${0.75 + 0.25 * pPulse}`;
-      });
-    }
+      // Synchronous subtle glow across all nodes in final network
+      if (progress >= 0.94) {
+        const pPulse = mapRange(progress, 0.94, 1.00);
+        svg.querySelectorAll('.node-ring').forEach(ring => {
+          ring.style.opacity = `${0.75 + 0.25 * pPulse}`;
+        });
+      }
 
-    // ── STAGE 8: Typography Scrubbing ──
-    if (textGlobalTrade) {
-      const pText1 = mapRange(progress, 0.04, 0.24);
-      textGlobalTrade.style.opacity = 0.65 + 0.35 * pText1;
-    }
-    if (textTomorrow) {
-      const pText2 = mapRange(progress, 0.30, 0.65);
-      textTomorrow.style.filter = pText2 > 0.5 ? 'drop-shadow(0 0 12px rgba(229, 169, 60, 0.75))' : 'none';
-    }
-    if (textSubtitle) {
-      const pText3 = mapRange(progress, 0.70, 0.96);
-      textSubtitle.style.opacity = 0.3 + 0.7 * pText3;
+      // ── STAGE 8: Typography Scrubbing ──
+      if (textGlobalTrade) {
+        const pText1 = mapRange(progress, 0.04, 0.24);
+        textGlobalTrade.style.opacity = 0.65 + 0.35 * pText1;
+      }
+      if (textTomorrow) {
+        const pText2 = mapRange(progress, 0.30, 0.65);
+        textTomorrow.style.filter = pText2 > 0.5 ? 'drop-shadow(0 0 12px rgba(229, 169, 60, 0.75))' : 'none';
+      }
+      if (textSubtitle) {
+        const pText3 = mapRange(progress, 0.70, 0.96);
+        textSubtitle.style.opacity = 0.3 + 0.7 * pText3;
+      }
+    } catch (err) {
+      console.warn('[GlobalTrade] Animation frame warning:', err);
     }
   }
 
@@ -1037,18 +1055,22 @@ function initGlobalTradeScrollAnimation() {
 
     rafId = requestAnimationFrame(() => {
       rafId = null;
-      const rect = scrollSpace.getBoundingClientRect();
-      const isMobile = window.innerWidth <= 768;
-      const stickyTop = isMobile ? 76 : 96;
-      const cardHeight = card?.offsetHeight || (isMobile ? 360 : 480);
-      const totalDistance = scrollSpace.offsetHeight - cardHeight;
-      if (totalDistance <= 0) return;
+      try {
+        const rect = scrollSpace.getBoundingClientRect();
+        const isMobile = window.innerWidth <= 768;
+        const stickyTop = isMobile ? 76 : 96;
+        const cardHeight = card?.offsetHeight || (isMobile ? 360 : 480);
+        const totalDistance = scrollSpace.offsetHeight - cardHeight;
+        if (totalDistance <= 0) return;
 
-      const scrolled = -rect.top + stickyTop;
-      let progress = scrolled / totalDistance;
-      progress = clamp(progress, 0, 1);
+        const scrolled = -rect.top + stickyTop;
+        let progress = scrolled / totalDistance;
+        progress = clamp(progress, 0, 1);
 
-      updateScrubbedAnimation(progress);
+        updateScrubbedAnimation(progress);
+      } catch (e) {
+        console.warn('[GlobalTrade] Scroll error:', e);
+      }
     });
   }
 
@@ -1063,15 +1085,23 @@ function initGlobalTradeScrollAnimation() {
   }, { passive: true });
 }
 
-// Initialize Global Trade Scroll Animation
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initGlobalTradeScrollAnimation);
-} else {
+// -------------------------------------------------------------------
+// 10. Unified Application Lifecycle Initializer
+// -------------------------------------------------------------------
+function initApp() {
+  initCopyrightYear();
+  initStickyNav();
+  initMobileMenu();
+  initQuoteModal();
+  initWhatsAppForms();
+  initCounters();
+  initImageReveals();
+  initShipHover();
   initGlobalTradeScrollAnimation();
 }
 
-
-
-
-
-
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
