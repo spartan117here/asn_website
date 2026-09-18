@@ -23,6 +23,8 @@ if (yearEl) {
 // -------------------------------------------------------------------
 // 1. Sticky Navigation Bar with Elevation on Scroll
 // -------------------------------------------------------------------
+// 1. Sticky/Fixed Navigation Bar with Elevation on Scroll
+// -------------------------------------------------------------------
 const siteNav = document.getElementById('siteNav');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 20) {
@@ -30,15 +32,18 @@ window.addEventListener('scroll', () => {
   } else {
     siteNav?.classList.remove('site-nav--scrolled');
   }
-});
+}, { passive: true });
 
 // -------------------------------------------------------------------
-// 2. Mobile Menu & Products Dropdown Interaction
+// 2. Mobile Menu & Products Dropdown Interaction (Mobile-Safe Scroll Lock)
 // -------------------------------------------------------------------
 const menuToggle = document.getElementById('menuToggle');
 const navMenu = document.getElementById('navMenu');
 const navDropdown = document.querySelector('.nav-dropdown');
 const dropdownToggle = navDropdown?.querySelector('.nav-link--dropdown');
+
+let isMobileMenuOpen = false;
+let savedScrollY = 0;
 
 function resetMobileProducts() {
   if (navDropdown) {
@@ -48,19 +53,59 @@ function resetMobileProducts() {
   }
 }
 
-if (menuToggle && navMenu) {
-  menuToggle.addEventListener('click', () => {
-    const isOpen = navMenu.classList.toggle('site-nav__links--open');
-    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    
-    // Always reset products submenu to closed state when opening or closing hamburger
-    resetMobileProducts();
+// Touch event handler to prevent background scroll without moving window.scrollY
+function preventBackgroundScroll(e) {
+  if (navMenu && navMenu.contains(e.target)) {
+    return; // Allow touch scrolling inside the mobile navigation menu panel
+  }
+  e.preventDefault();
+}
 
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+function openMobileMenu() {
+  isMobileMenuOpen = true;
+  savedScrollY = window.scrollY || window.pageYOffset || 0;
+
+  navMenu?.classList.add('site-nav__links--open');
+  menuToggle?.classList.add('menu-toggle--open');
+  menuToggle?.setAttribute('aria-expanded', 'true');
+  siteNav?.classList.add('site-nav--menu-open');
+  document.body.classList.add('mobile-nav-locked');
+
+  resetMobileProducts();
+  window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
+}
+
+function closeMobileMenu() {
+  if (!isMobileMenuOpen) return;
+  isMobileMenuOpen = false;
+
+  navMenu?.classList.remove('site-nav__links--open');
+  menuToggle?.classList.remove('menu-toggle--open');
+  menuToggle?.setAttribute('aria-expanded', 'false');
+  siteNav?.classList.remove('site-nav--menu-open');
+  document.body.classList.remove('mobile-nav-locked');
+
+  window.removeEventListener('touchmove', preventBackgroundScroll);
+  resetMobileProducts();
+
+  // Ensure scroll position remains exactly where the user was
+  if (typeof savedScrollY === 'number') {
+    window.scrollTo(0, savedScrollY);
+  }
+}
+
+function toggleMobileMenu() {
+  if (isMobileMenuOpen) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMobileMenu();
   });
 
   // Mobile-only Products click toggle
@@ -78,22 +123,23 @@ if (menuToggle && navMenu) {
   navMenu.querySelectorAll('a, button').forEach((item) => {
     if (item === dropdownToggle) return;
     item.addEventListener('click', () => {
-      navMenu.classList.remove('site-nav__links--open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      resetMobileProducts();
-      document.body.style.overflow = '';
+      closeMobileMenu();
     });
+  });
+
+  // Close menu when tapping outside the menu panel and toggle button
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth > 768 || !isMobileMenuOpen) return;
+    if (navMenu.contains(e.target) || menuToggle.contains(e.target)) return;
+    closeMobileMenu();
   });
 
   // Reset if resized back to desktop
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-      navMenu.classList.remove('site-nav__links--open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      resetMobileProducts();
-      document.body.style.overflow = '';
+    if (window.innerWidth > 768 && isMobileMenuOpen) {
+      closeMobileMenu();
     }
-  });
+  }, { passive: true });
 }
 
 // -------------------------------------------------------------------
@@ -155,44 +201,240 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-// Form Submission Simulation
-quoteForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(quoteForm);
-  const name = formData.get('name');
+// ===================================================================
+// 3. Professional WhatsApp Business Enquiry Submission
+// Target Company WhatsApp: +91 90873 05577 (wa.me/919087305577)
+// ===================================================================
+const COMPANY_WHATSAPP_NUMBER = '919087305577';
 
-  if (formFeedback) {
-    formFeedback.className = 'form-feedback form-feedback--success';
-    formFeedback.textContent = `Thank you, ${name}! Your trade inquiry has been received. Our export specialist will contact you shortly.`;
+function formatWhatsAppEnquiry({ name, email, phone, product, message }) {
+  return [
+    'Hello ASN Imports & Exports Team,',
+    '',
+    'I would like to submit a business enquiry through your website.',
+    '',
+    '━━━━━━━━━━━━━━━━━━',
+    '',
+    'CUSTOMER DETAILS',
+    '',
+    'Name:',
+    name,
+    '',
+    'Business Email:',
+    email,
+    '',
+    'Phone / WhatsApp:',
+    phone,
+    '',
+    'Product / Service:',
+    product,
+    '',
+    '━━━━━━━━━━━━━━━━━━',
+    '',
+    'ENQUIRY DETAILS',
+    '',
+    'Message / Requirements:',
+    message,
+    '',
+    '━━━━━━━━━━━━━━━━━━',
+    '',
+    'Source:',
+    'ASN Logistics Website',
+    '',
+    'Thank you.'
+  ].join('\n');
+}
+
+function setupWhatsAppForm(form, feedbackEl, isModal = false) {
+  if (!form) return;
+
+  const nameInput = form.querySelector('[name="name"]');
+  const emailInput = form.querySelector('[name="email"]');
+  const phoneInput = form.querySelector('[name="phone"]');
+  const categoryInput = form.querySelector('[name="category"]');
+  const messageInput = form.querySelector('[name="message"]');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const btnSpan = submitBtn ? submitBtn.querySelector('span') : null;
+  const originalBtnText = btnSpan ? btnSpan.textContent : 'Send Enquiry';
+
+  function clearFieldError(input) {
+    if (!input) return;
+    const group = input.closest('.form-group');
+    if (group) {
+      group.classList.remove('has-error');
+      const errEl = group.querySelector('.field-error');
+      if (errEl) errEl.textContent = '';
+    }
   }
 
-  quoteForm.reset();
-  setTimeout(() => {
-    closeModal();
-  }, 3500);
-});
+  function setFieldError(input, msg) {
+    if (!input) return;
+    const group = input.closest('.form-group');
+    if (group) {
+      group.classList.add('has-error');
+      let errEl = group.querySelector('.field-error');
+      if (!errEl) {
+        errEl = document.createElement('span');
+        errEl.className = 'field-error';
+        group.appendChild(errEl);
+      }
+      errEl.textContent = msg;
+    }
+  }
 
-// -------------------------------------------------------------------
-// 3b. Inline Contact Form (in the Contact Section)
-// -------------------------------------------------------------------
+  // Clear field errors as soon as user types or selects
+  [nameInput, emailInput, phoneInput, categoryInput, messageInput].forEach((input) => {
+    if (!input) return;
+    const eventName = input.tagName === 'SELECT' ? 'change' : 'input';
+    input.addEventListener(eventName, () => clearFieldError(input));
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let isValid = true;
+    let firstInvalid = null;
+
+    if (feedbackEl) {
+      feedbackEl.className = isModal ? 'form-feedback' : 'contact-form-feedback';
+      feedbackEl.textContent = '';
+    }
+
+    // 1. Full Name: required, trimmed
+    const nameVal = nameInput ? nameInput.value.trim() : '';
+    if (!nameVal) {
+      setFieldError(nameInput, 'Full Name is required.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = nameInput;
+    } else if (nameVal.length < 2) {
+      setFieldError(nameInput, 'Please enter at least 2 characters.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = nameInput;
+    } else {
+      clearFieldError(nameInput);
+    }
+
+    // 2. Business Email: required, valid format
+    const emailVal = emailInput ? emailInput.value.trim() : '';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal) {
+      setFieldError(emailInput, 'Business Email is required.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = emailInput;
+    } else if (!emailRegex.test(emailVal)) {
+      setFieldError(emailInput, 'Please enter a valid business email address.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = emailInput;
+    } else {
+      clearFieldError(emailInput);
+    }
+
+    // 3. Phone / WhatsApp: required, international formats allowed
+    const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+    const digitsOnly = phoneVal.replace(/\D/g, '');
+    if (!phoneVal) {
+      setFieldError(phoneInput, 'Phone / WhatsApp is required.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = phoneInput;
+    } else if (digitsOnly.length < 7 || digitsOnly.length > 16) {
+      setFieldError(phoneInput, 'Please enter a valid phone number (e.g. +91 90873 05577).');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = phoneInput;
+    } else {
+      clearFieldError(phoneInput);
+    }
+
+    // 4. Product / Service: required, must not be empty
+    const categoryVal = categoryInput ? categoryInput.value.trim() : '';
+    if (!categoryVal || categoryVal === '') {
+      setFieldError(categoryInput, 'Please select a product or service category.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = categoryInput;
+    } else {
+      clearFieldError(categoryInput);
+    }
+
+    // 5. Message / Requirements: required, trimmed
+    const messageVal = messageInput ? messageInput.value.trim() : '';
+    if (!messageVal) {
+      setFieldError(messageInput, 'Please provide details of your enquiry or requirements.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = messageInput;
+    } else if (messageVal.length < 5) {
+      setFieldError(messageInput, 'Please enter at least 5 characters for your requirements.');
+      isValid = false;
+      if (!firstInvalid) firstInvalid = messageInput;
+    } else {
+      clearFieldError(messageInput);
+    }
+
+    if (!isValid) {
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Prevent accidental double submit & update button state
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      if (btnSpan) btnSpan.textContent = 'Preparing WhatsApp...';
+    }
+
+    // Format & encode message
+    const messageText = formatWhatsAppEnquiry({
+      name: nameVal,
+      email: emailVal,
+      phone: phoneVal,
+      product: categoryVal,
+      message: messageVal
+    });
+
+    const encodedText = encodeURIComponent(messageText);
+    const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP_NUMBER}?text=${encodedText}`;
+
+    // Open WhatsApp
+    let opened = false;
+    try {
+      const win = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (win) {
+        opened = true;
+        win.focus();
+      }
+    } catch (err) {
+      opened = false;
+    }
+
+    // Display professional handoff confirmation (Do not claim that website sent it)
+    if (feedbackEl) {
+      const baseClass = isModal ? 'form-feedback' : 'contact-form-feedback';
+      feedbackEl.className = `${baseClass} ${baseClass}--ready`;
+      feedbackEl.innerHTML = `
+        <div class="feedback-badge">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Your enquiry is ready in WhatsApp. Please press Send to submit it.</span>
+        </div>
+        <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="whatsapp-direct-link">
+          <span>Click here if WhatsApp did not open automatically &rarr;</span>
+        </a>
+      `;
+    }
+
+    // Restore button after brief handoff delay
+    setTimeout(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        if (btnSpan) btnSpan.textContent = originalBtnText;
+      }
+    }, 1500);
+  });
+}
+
+// Initialize WhatsApp submission for Contact Section Form
 const contactForm = document.getElementById('contactForm');
 const contactFormFeedback = document.getElementById('contactFormFeedback');
+setupWhatsAppForm(contactForm, contactFormFeedback, false);
 
-contactForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(contactForm);
-  const name = formData.get('name');
-
-  if (contactFormFeedback) {
-    contactFormFeedback.className = 'contact-form-feedback contact-form-feedback--success';
-    contactFormFeedback.textContent = `Thank you, ${name}! We've received your enquiry and will get back to you within one business day.`;
-  }
-
-  contactForm.reset();
-  setTimeout(() => {
-    if (contactFormFeedback) contactFormFeedback.textContent = '';
-  }, 5000);
-});
+// Initialize WhatsApp submission for Quote Modal Form
+setupWhatsAppForm(quoteForm, formFeedback, true);
 
 
 // -------------------------------------------------------------------
@@ -253,15 +495,7 @@ if (!prefersReducedMotion && typeof gsap !== 'undefined') {
   gsap.from('.hero__lead', { y: 10, duration: 0.7, delay: 0.1, ease: 'power2.out' });
   gsap.from('.hero__buttons', { y: 10, duration: 0.6, delay: 0.2, ease: 'power2.out' });
 
-  // 1. Hero background photo entrance (immediate on load)
-  const heroImg = document.querySelector('.hero__photo-img');
-  if (heroImg) {
-    gsap.fromTo(
-      heroImg,
-      { scale: 1.08, opacity: 0.8 },
-      { scale: 1.0, opacity: 1.0, duration: 1.3, ease: 'power2.out' }
-    );
-  }
+  // 1. Hero background photo renders immediately at 100% native resolution without scale/opacity distortion
 
   // 2. Individual photographic image containers (ScrollTrigger at ~85% viewport)
   const singleRevealSelectors = [
@@ -272,31 +506,32 @@ if (!prefersReducedMotion && typeof gsap !== 'undefined') {
   ];
 
   singleRevealSelectors.forEach((selector) => {
-    const container = document.querySelector(selector);
-    if (!container) return;
-    const img = container.querySelector('img');
+    document.querySelectorAll(selector).forEach((container) => {
+      if (!container) return;
+      const img = container.querySelector('img');
 
-    gsap.set(container, { clipPath: 'inset(100% 0% 0% 0%)' });
-    if (img) gsap.set(img, { scale: 1.12 });
+      gsap.set(container, { clipPath: 'inset(100% 0% 0% 0%)' });
+      if (img) gsap.set(img, { scale: 1.12 });
 
-    ScrollTrigger.create({
-      trigger: container,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => {
-        gsap.to(container, {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          duration: 1.0,
-          ease: 'power3.out'
-        });
-        if (img) {
-          gsap.to(img, {
-            scale: 1.0,
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          gsap.to(container, {
+            clipPath: 'inset(0% 0% 0% 0%)',
             duration: 1.0,
             ease: 'power3.out'
           });
+          if (img) {
+            gsap.to(img, {
+              scale: 1.0,
+              duration: 1.0,
+              ease: 'power3.out'
+            });
+          }
         }
-      }
+      });
     });
   });
 
@@ -548,6 +783,7 @@ function initGlobalTradeScrollAnimation() {
   const partInSea = svg.querySelector('#particle-in-sea');
   const partInAf = svg.querySelector('#particle-in-af');
   const partInEa = svg.querySelector('#particle-in-ea');
+  const partEuNa = svg.querySelector('#particle-eu-na');
 
   // Target logistics indicators
   const aircraft = svg.querySelector('#aircraft-indicator');
@@ -558,29 +794,39 @@ function initGlobalTradeScrollAnimation() {
   const textTomorrow = card?.querySelector('.watermark-script em');
   const textSubtitle = card?.querySelector('.watermark-sub');
 
-  // Pre-calculate path total lengths
-  const routes = [
-    { el: routeInMe, start: 0.08, end: 0.25 },
-    { el: routeMeEu, start: 0.25, end: 0.42 },
-    { el: routeInSea, start: 0.44, end: 0.58 },
-    { el: routeInAf, start: 0.56, end: 0.70 },
-    { el: routeInEa, start: 0.68, end: 0.80 },
-    { el: routeEuNa, start: 0.74, end: 0.90 },
-    { el: routeLoop, start: 0.82, end: 0.98 }
-  ];
+  const allRoutes = [routeInMe, routeMeEu, routeInSea, routeInAf, routeInEa, routeEuNa, routeLoop];
+  const allParticles = [partInMe, partMeEu, partInSea, partInAf, partInEa, partEuNa];
 
-  routes.forEach(r => {
-    if (r.el) {
-      try {
-        const len = r.el.getTotalLength() || 100;
-        r.len = len;
-        r.el.style.strokeDasharray = `${len}`;
-        r.el.style.strokeDashoffset = `${len}`;
-      } catch (err) {
-        r.len = 100;
+  const routeLens = new Map();
+  function getRouteLen(el) {
+    if (!el) return 100;
+    if (routeLens.has(el)) return routeLens.get(el);
+    try {
+      const l = el.getTotalLength();
+      if (l && l > 0) {
+        routeLens.set(el, l);
+        return l;
       }
-    }
-  });
+    } catch (e) {}
+    return 100;
+  }
+
+  function measureAndInitRoutes() {
+    routeLens.clear();
+    allRoutes.forEach(r => {
+      if (r) {
+        try {
+          const len = r.getTotalLength() || 100;
+          routeLens.set(r, len);
+          r.style.strokeDasharray = `${len}`;
+          r.style.strokeDashoffset = `${len}`;
+        } catch (e) {
+          routeLens.set(r, 100);
+        }
+      }
+    });
+  }
+  measureAndInitRoutes();
 
   function clamp(val, min, max) {
     return Math.max(min, Math.min(max, val));
@@ -590,125 +836,134 @@ function initGlobalTradeScrollAnimation() {
     return clamp((val - inMin) / (inMax - inMin), 0, 1);
   }
 
+  // Helper: animate destination node golden bloom upon arrival
+  function updateNode(node, cx, cy, progress, tAppear, tPeak, tSettle) {
+    if (!node) return;
+    if (progress < tAppear) {
+      node.style.opacity = '0';
+      node.setAttribute('transform', `translate(${cx}, ${cy}) scale(0.4)`);
+    } else if (progress < tPeak) {
+      // Expanding golden bloom ✨
+      const t = mapRange(progress, tAppear, tPeak);
+      const s = 0.4 + 0.82 * t; // 0.4 -> ~1.22
+      node.style.opacity = `${t}`;
+      node.setAttribute('transform', `translate(${cx}, ${cy}) scale(${s})`);
+      const ring = node.querySelector('.node-ring');
+      if (ring) {
+        ring.style.opacity = '1';
+        ring.style.strokeWidth = `${2 + 1.6 * t}`;
+      }
+    } else if (progress < tSettle) {
+      // Bloom gracefully settles to standard size
+      const t = mapRange(progress, tPeak, tSettle);
+      const s = 1.22 - 0.22 * t; // 1.22 -> 1.0
+      node.style.opacity = '1';
+      node.setAttribute('transform', `translate(${cx}, ${cy}) scale(${s})`);
+      const ring = node.querySelector('.node-ring');
+      if (ring) {
+        ring.style.opacity = `${1 - 0.25 * t}`;
+        ring.style.strokeWidth = `${3.6 - 1.8 * t}`;
+      }
+    } else {
+      // Established active node
+      node.style.opacity = '1';
+      node.setAttribute('transform', `translate(${cx}, ${cy}) scale(1)`);
+      const ring = node.querySelector('.node-ring');
+      if (ring) {
+        ring.style.opacity = '0.75';
+        ring.style.strokeWidth = '1.8';
+      }
+    }
+  }
+
+  // Helper: animate route drawing & exact particle path travel from start node to destination node
+  function updateJourney(route, particle, progress, tStart, tEnd, tDissolve) {
+    if (!route) return;
+    const len = getRouteLen(route);
+    const t = mapRange(progress, tStart, tEnd);
+
+    // 1. Draw route line
+    route.style.strokeDashoffset = `${len * (1 - t)}`;
+    route.style.opacity = progress >= tStart ? '0.85' : '0.12';
+
+    // 2. Mathematically synchronize particle along exact route path geometry
+    if (particle) {
+      if (t > 0 && t < 1) {
+        // In transit: follows exact path curve
+        const pt = route.getPointAtLength(t * len);
+        particle.setAttribute('cx', pt.x);
+        particle.setAttribute('cy', pt.y);
+        particle.setAttribute('opacity', '1');
+      } else if (t >= 1 && tDissolve && progress < tDissolve) {
+        // Destination reached: sits at destination node before gentle dissolve
+        const pt = route.getPointAtLength(len);
+        particle.setAttribute('cx', pt.x);
+        particle.setAttribute('cy', pt.y);
+        const pDissolve = mapRange(progress, tEnd, tDissolve);
+        particle.setAttribute('opacity', `${1 - pDissolve}`);
+      } else {
+        particle.setAttribute('opacity', '0');
+      }
+    }
+  }
+
   // Animation frame scrubbing
   let rafId = null;
   let lastProgress = -1;
 
   function updateScrubbedAnimation(progress) {
-    if (Math.abs(progress - lastProgress) < 0.0005) return;
+    if (Math.abs(progress - lastProgress) < 0.0003) return;
     lastProgress = progress;
 
-    // 1. India Node (origin hub): activates early 0.02 - 0.12
+    // ── STAGE 0: Origin Node (India) Awakens (0.00 - 0.07) ──
     if (nodeIndia) {
-      const pIndia = mapRange(progress, 0.02, 0.12);
-      nodeIndia.style.opacity = pIndia;
-      const s = 0.5 + 0.5 * pIndia;
-      nodeIndia.setAttribute('transform', `translate(705, 248) scale(${s})`);
-    }
-
-    // 2. Route 1: India -> Middle East (0.08 - 0.25)
-    const tInMe = mapRange(progress, 0.08, 0.25);
-    if (routeInMe && routes[0].len) {
-      routeInMe.style.strokeDashoffset = routes[0].len * (1 - tInMe);
-      routeInMe.style.opacity = progress >= 0.08 ? '0.85' : '0.15';
-    }
-    if (partInMe && routeInMe && routes[0].len) {
-      if (tInMe > 0 && tInMe < 1) {
-        const pt = routeInMe.getPointAtLength(tInMe * routes[0].len);
-        partInMe.setAttribute('cx', pt.x);
-        partInMe.setAttribute('cy', pt.y);
-        partInMe.setAttribute('opacity', '1');
+      if (progress < 0.01) {
+        nodeIndia.style.opacity = '0';
+        nodeIndia.setAttribute('transform', 'translate(705, 248) scale(0.4)');
+      } else if (progress < 0.07) {
+        const t = mapRange(progress, 0.01, 0.07);
+        const s = 0.4 + 0.75 * t; // 0.4 -> 1.15
+        nodeIndia.style.opacity = `${t}`;
+        nodeIndia.setAttribute('transform', `translate(705, 248) scale(${s})`);
       } else {
-        partInMe.setAttribute('opacity', '0');
+        nodeIndia.style.opacity = '1';
+        nodeIndia.setAttribute('transform', 'translate(705, 248) scale(1)');
       }
     }
 
-    // 3. Middle East Node: activates 0.22 - 0.30
-    if (nodeMe) {
-      const pMe = mapRange(progress, 0.22, 0.30);
-      nodeMe.style.opacity = pMe;
-      const s = 0.5 + 0.5 * pMe;
-      nodeMe.setAttribute('transform', `translate(595, 205) scale(${s})`);
-    }
+    // ── STAGE 1: Journey 1 — India -> Middle East (0.07 - 0.20) ──
+    // Particle travels (705, 248) -> (595, 205). Middle East blooms (0.16 - 0.24).
+    updateJourney(routeInMe, partInMe, progress, 0.07, 0.18, 0.22);
+    updateNode(nodeMe, 595, 205, progress, 0.16, 0.20, 0.24);
 
-    // 4. Route 2: Middle East -> Europe (0.25 - 0.42)
-    const tMeEu = mapRange(progress, 0.25, 0.42);
-    if (routeMeEu && routes[1].len) {
-      routeMeEu.style.strokeDashoffset = routes[1].len * (1 - tMeEu);
-      routeMeEu.style.opacity = progress >= 0.25 ? '0.85' : '0.15';
-    }
-    if (partMeEu && routeMeEu && routes[1].len) {
-      if (tMeEu > 0 && tMeEu < 1) {
-        const pt = routeMeEu.getPointAtLength(tMeEu * routes[1].len);
-        partMeEu.setAttribute('cx', pt.x);
-        partMeEu.setAttribute('cy', pt.y);
-        partMeEu.setAttribute('opacity', '1');
-      } else {
-        partMeEu.setAttribute('opacity', '0');
-      }
-    }
+    // ── STAGE 2: Journey 2 — Middle East -> Europe (0.22 - 0.35) ──
+    // Particle travels (595, 205) -> (515, 135). Europe blooms (0.30 - 0.38).
+    updateJourney(routeMeEu, partMeEu, progress, 0.22, 0.32, 0.36);
+    updateNode(nodeEurope, 515, 135, progress, 0.30, 0.34, 0.38);
 
-    // 5. Europe Node: activates 0.38 - 0.48
-    if (nodeEurope) {
-      const pEu = mapRange(progress, 0.38, 0.48);
-      nodeEurope.style.opacity = pEu;
-      const s = 0.5 + 0.5 * pEu;
-      nodeEurope.setAttribute('transform', `translate(515, 135) scale(${s})`);
-    }
+    // ── STAGE 3: Journey 3 — India -> Southeast Asia (0.36 - 0.49) ──
+    // Particle travels (705, 248) -> (795, 295). SE Asia blooms (0.44 - 0.52).
+    updateJourney(routeInSea, partInSea, progress, 0.36, 0.46, 0.50);
+    updateNode(nodeSea, 795, 295, progress, 0.44, 0.48, 0.52);
 
-    // 6. Route 3: India -> Southeast Asia (0.44 - 0.58)
-    const tInSea = mapRange(progress, 0.44, 0.58);
-    if (routeInSea && routes[2].len) {
-      routeInSea.style.strokeDashoffset = routes[2].len * (1 - tInSea);
-      routeInSea.style.opacity = progress >= 0.44 ? '0.85' : '0.15';
-    }
-    if (partInSea && routeInSea && routes[2].len) {
-      if (tInSea > 0 && tInSea < 1) {
-        const pt = routeInSea.getPointAtLength(tInSea * routes[2].len);
-        partInSea.setAttribute('cx', pt.x);
-        partInSea.setAttribute('cy', pt.y);
-        partInSea.setAttribute('opacity', '1');
-      } else {
-        partInSea.setAttribute('opacity', '0');
-      }
-    }
+    // ── STAGE 4: Journey 4 — India -> Africa (0.50 - 0.63) ──
+    // Particle & cargo ship travel (705, 248) -> (585, 320). Africa blooms (0.58 - 0.66).
+    updateJourney(routeInAf, partInAf, progress, 0.50, 0.60, 0.64);
+    updateNode(nodeAf, 585, 320, progress, 0.58, 0.62, 0.66);
 
-    // Southeast Asia Node: activates 0.52 - 0.60
-    if (nodeSea) {
-      const pSea = mapRange(progress, 0.52, 0.60);
-      nodeSea.style.opacity = pSea;
-      const s = 0.5 + 0.5 * pSea;
-      nodeSea.setAttribute('transform', `translate(795, 295) scale(${s})`);
-    }
-
-    // 7. Route 4: India -> Africa (0.56 - 0.70)
-    const tInAf = mapRange(progress, 0.56, 0.70);
-    if (routeInAf && routes[3].len) {
-      routeInAf.style.strokeDashoffset = routes[3].len * (1 - tInAf);
-      routeInAf.style.opacity = progress >= 0.56 ? '0.85' : '0.15';
-    }
-    if (partInAf && routeInAf && routes[3].len) {
-      if (tInAf > 0 && tInAf < 1) {
-        const pt = routeInAf.getPointAtLength(tInAf * routes[3].len);
-        partInAf.setAttribute('cx', pt.x);
-        partInAf.setAttribute('cy', pt.y);
-        partInAf.setAttribute('opacity', '1');
-      } else {
-        partInAf.setAttribute('opacity', '0');
-      }
-    }
-
-    // Ship indicator along India -> Africa / maritime lane (0.56 - 0.72)
-    if (ship && routeInAf && routes[3].len) {
-      if (tInAf > 0 && tInAf <= 1) {
-        const d = tInAf * routes[3].len;
+    // Cargo ship along maritime lane
+    if (ship && routeInAf) {
+      const lenAf = getRouteLen(routeInAf);
+      const tAf = mapRange(progress, 0.50, 0.60);
+      if (tAf > 0 && tAf <= 1) {
+        const d = tAf * lenAf;
         const pt = routeInAf.getPointAtLength(d);
-        const ptNext = routeInAf.getPointAtLength(Math.min(routes[3].len, d + 2));
+        const ptNext = routeInAf.getPointAtLength(Math.min(lenAf, d + 2));
         const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
-        ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.9)`);
+        ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.95)`);
         ship.setAttribute('opacity', '1');
-      } else if (progress > 0.70) {
-        const pt = routeInAf.getPointAtLength(routes[3].len);
+      } else if (progress > 0.60) {
+        const pt = routeInAf.getPointAtLength(lenAf);
         ship.setAttribute('transform', `translate(${pt.x}, ${pt.y}) scale(0.85)`);
         ship.setAttribute('opacity', '0.75');
       } else {
@@ -716,57 +971,29 @@ function initGlobalTradeScrollAnimation() {
       }
     }
 
-    // Africa Node: activates 0.64 - 0.72
-    if (nodeAf) {
-      const pAf = mapRange(progress, 0.64, 0.72);
-      nodeAf.style.opacity = pAf;
-      const s = 0.5 + 0.5 * pAf;
-      nodeAf.setAttribute('transform', `translate(585, 320) scale(${s})`);
-    }
+    // ── STAGE 5: Journey 5 — India -> East Asia (0.64 - 0.76) ──
+    // Particle travels (705, 248) -> (825, 195). East Asia blooms (0.71 - 0.79).
+    updateJourney(routeInEa, partInEa, progress, 0.64, 0.73, 0.77);
+    updateNode(nodeEa, 825, 195, progress, 0.71, 0.75, 0.79);
 
-    // 8. Route 5: India -> East Asia (0.68 - 0.80)
-    const tInEa = mapRange(progress, 0.68, 0.80);
-    if (routeInEa && routes[4].len) {
-      routeInEa.style.strokeDashoffset = routes[4].len * (1 - tInEa);
-      routeInEa.style.opacity = progress >= 0.68 ? '0.85' : '0.15';
-    }
-    if (partInEa && routeInEa && routes[4].len) {
-      if (tInEa > 0 && tInEa < 1) {
-        const pt = routeInEa.getPointAtLength(tInEa * routes[4].len);
-        partInEa.setAttribute('cx', pt.x);
-        partInEa.setAttribute('cy', pt.y);
-        partInEa.setAttribute('opacity', '1');
-      } else {
-        partInEa.setAttribute('opacity', '0');
-      }
-    }
+    // ── STAGE 6: Journey 6 — Europe -> North America (0.77 - 0.89) ──
+    // Particle & aircraft travel transatlantic (515, 135) -> (285, 180). North America blooms (0.84 - 0.92).
+    updateJourney(routeEuNa, partEuNa, progress, 0.77, 0.86, 0.90);
+    updateNode(nodeNa, 285, 180, progress, 0.84, 0.88, 0.92);
 
-    // East Asia Node: activates 0.74 - 0.82
-    if (nodeEa) {
-      const pEa = mapRange(progress, 0.74, 0.82);
-      nodeEa.style.opacity = pEa;
-      const s = 0.5 + 0.5 * pEa;
-      nodeEa.setAttribute('transform', `translate(825, 195) scale(${s})`);
-    }
-
-    // 9. Route 6: Europe -> North America (0.74 - 0.90)
-    const tEuNa = mapRange(progress, 0.74, 0.90);
-    if (routeEuNa && routes[5].len) {
-      routeEuNa.style.strokeDashoffset = routes[5].len * (1 - tEuNa);
-      routeEuNa.style.opacity = progress >= 0.74 ? '0.85' : '0.15';
-    }
-
-    // Aircraft indicator along transatlantic route (0.74 - 0.90)
-    if (aircraft && routeEuNa && routes[5].len) {
+    // Aircraft indicator along transatlantic route
+    if (aircraft && routeEuNa) {
+      const lenEuNa = getRouteLen(routeEuNa);
+      const tEuNa = mapRange(progress, 0.77, 0.86);
       if (tEuNa > 0 && tEuNa <= 1) {
-        const d = tEuNa * routes[5].len;
+        const d = tEuNa * lenEuNa;
         const pt = routeEuNa.getPointAtLength(d);
-        const ptNext = routeEuNa.getPointAtLength(Math.min(routes[5].len, d + 2));
+        const ptNext = routeEuNa.getPointAtLength(Math.min(lenEuNa, d + 2));
         const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI) + 90;
         aircraft.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle}) scale(0.95)`);
         aircraft.setAttribute('opacity', '1');
-      } else if (progress > 0.90) {
-        const pt = routeEuNa.getPointAtLength(routes[5].len);
+      } else if (progress > 0.86) {
+        const pt = routeEuNa.getPointAtLength(lenEuNa);
         aircraft.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(-90) scale(0.9)`);
         aircraft.setAttribute('opacity', '0.75');
       } else {
@@ -774,45 +1001,47 @@ function initGlobalTradeScrollAnimation() {
       }
     }
 
-    // North America Node: activates 0.82 - 0.90
-    if (nodeNa) {
-      const pNa = mapRange(progress, 0.82, 0.90);
-      nodeNa.style.opacity = pNa;
-      const s = 0.5 + 0.5 * pNa;
-      nodeNa.setAttribute('transform', `translate(285, 180) scale(${s})`);
+    // ── STAGE 7: Maritime Connecting Loop & Complete Global Network (0.88 - 1.00) ──
+    if (routeLoop) {
+      const lenLoop = getRouteLen(routeLoop);
+      const tLoop = mapRange(progress, 0.88, 0.98);
+      routeLoop.style.strokeDashoffset = `${lenLoop * (1 - tLoop)}`;
+      routeLoop.style.opacity = progress >= 0.88 ? '0.55' : '0.1';
     }
 
-    // 10. Route 7: Maritime Connecting Loop (0.82 - 0.98)
-    const tLoop = mapRange(progress, 0.82, 0.98);
-    if (routeLoop && routes[6].len) {
-      routeLoop.style.strokeDashoffset = routes[6].len * (1 - tLoop);
-      routeLoop.style.opacity = progress >= 0.82 ? '0.45' : '0.1';
+    // Synchronous subtle glow across all nodes in final network
+    if (progress >= 0.94) {
+      const pPulse = mapRange(progress, 0.94, 1.00);
+      svg.querySelectorAll('.node-ring').forEach(ring => {
+        ring.style.opacity = `${0.75 + 0.25 * pPulse}`;
+      });
     }
 
-    // 11. Subtle Typography Enhancements tied to scroll scrubbing
+    // ── STAGE 8: Typography Scrubbing ──
     if (textGlobalTrade) {
-      const pText1 = mapRange(progress, 0.05, 0.22);
+      const pText1 = mapRange(progress, 0.04, 0.24);
       textGlobalTrade.style.opacity = 0.65 + 0.35 * pText1;
     }
     if (textTomorrow) {
-      const pText2 = mapRange(progress, 0.30, 0.55);
-      textTomorrow.style.filter = pText2 > 0.5 ? 'drop-shadow(0 0 10px rgba(229, 169, 60, 0.6))' : 'none';
+      const pText2 = mapRange(progress, 0.30, 0.65);
+      textTomorrow.style.filter = pText2 > 0.5 ? 'drop-shadow(0 0 12px rgba(229, 169, 60, 0.75))' : 'none';
     }
     if (textSubtitle) {
-      const pText3 = mapRange(progress, 0.65, 0.95);
+      const pText3 = mapRange(progress, 0.70, 0.96);
       textSubtitle.style.opacity = 0.3 + 0.7 * pText3;
     }
   }
 
   function onScroll() {
-    if (window.innerWidth > 768) return;
     if (rafId) return;
 
     rafId = requestAnimationFrame(() => {
       rafId = null;
       const rect = scrollSpace.getBoundingClientRect();
-      const stickyTop = 76;
-      const totalDistance = scrollSpace.offsetHeight - (window.innerHeight - stickyTop);
+      const isMobile = window.innerWidth <= 768;
+      const stickyTop = isMobile ? 76 : 96;
+      const cardHeight = card?.offsetHeight || (isMobile ? 360 : 480);
+      const totalDistance = scrollSpace.offsetHeight - cardHeight;
       if (totalDistance <= 0) return;
 
       const scrolled = -rect.top + stickyTop;
@@ -828,17 +1057,9 @@ function initGlobalTradeScrollAnimation() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => {
-    if (window.innerWidth <= 768) {
-      routes.forEach(r => {
-        if (r.el) {
-          try {
-            r.len = r.el.getTotalLength() || 100;
-          } catch (e) {}
-        }
-      });
-      lastProgress = -1;
-      onScroll();
-    }
+    measureAndInitRoutes();
+    lastProgress = -1;
+    onScroll();
   }, { passive: true });
 }
 
