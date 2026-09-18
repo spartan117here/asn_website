@@ -174,7 +174,7 @@
         <!-- Left: Port Container Terminal Card -->
         <div class="about-card-visual">
           <div class="about-card-visual__wrapper img-reveal-box">
-            <img src="/src/assets/port-cranes.jpg" alt="Port Container Terminal" class="about-card-visual__img" />
+            <img src="/src/assets/cargo-aircraft.jpg" alt="Air Cargo Logistics Terminal" class="about-card-visual__img" width="1024" height="571" />
             <div class="about-card-visual__caption">
               <span>Expanding</span>
               <strong>Global Opportunities</strong>
@@ -470,8 +470,12 @@
                   <path id="route-in-ea" class="trade-route-line" d="M 705 248 Q 770 200 825 195" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
                   <!-- 6. Europe -> North America -->
                   <path id="route-eu-na" class="trade-route-line" d="M 515 135 Q 400 110 285 180" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
-                  <!-- 7. Maritime Connecting Loop (North America -> India) -->
-                  <path id="route-loop" class="trade-route-line trade-route-line--loop" d="M 285 180 Q 450 390 705 248" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.35" />
+                  <!-- 7. North America -> South America (New Destination 1) -->
+                  <path id="route-na-sa" class="trade-route-line" d="M 285 180 Q 305 275 355 350" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 8. Southeast Asia -> Australia (New Destination 2) -->
+                  <path id="route-sea-aus" class="trade-route-line" d="M 795 295 Q 840 330 875 380" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 9. Maritime Connecting Loop (South America -> India) -->
+                  <path id="route-loop" class="trade-route-line trade-route-line--loop" d="M 355 350 Q 520 450 705 248" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.35" />
 
                   <!-- Moving Golden Particles (Position scrubbed via JS along paths) -->
                   <circle id="particle-in-me" class="trade-particle" r="5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
@@ -480,6 +484,8 @@
                   <circle id="particle-in-af" class="trade-particle" r="4.5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
                   <circle id="particle-in-ea" class="trade-particle" r="4.5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
                   <circle id="particle-eu-na" class="trade-particle" r="5" cx="515" cy="135" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-na-sa" class="trade-particle" r="5" cx="285" cy="180" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-sea-aus" class="trade-particle" r="4.5" cx="795" cy="295" opacity="0" filter="url(#goldGlow)" />
 
                   <!-- Subtle Logistics Indicators -->
                   <!-- Golden Aircraft along Transatlantic route -->
@@ -550,6 +556,22 @@
                     <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
                     <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
                     <text x="0" y="-14" class="node-label">NORTH AMERICA</text>
+                  </g>
+                  <!-- 8. South America (New Destination 1) -->
+                  <g id="node-sa" class="trade-node" transform="translate(355, 350)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="26" class="node-label">SOUTH AMERICA</text>
+                  </g>
+                  <!-- 9. Australia (New Destination 2) -->
+                  <g id="node-aus" class="trade-node" transform="translate(875, 380)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="26" class="node-label">AUSTRALIA</text>
                   </g>
                 </svg>
               </div>

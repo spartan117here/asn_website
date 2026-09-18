@@ -368,6 +368,7 @@ button {
   color: var(--white);
   background-color: var(--navy-950);
   overflow: hidden;
+  scroll-margin-top: 200px;
 }
 
 .hero__photo-container {
@@ -910,7 +911,7 @@ button {
 .global-trade-scroll-space {
   display: block;
   position: relative;
-  height: 220vh;
+  height: 280vh;
   margin-top: 32px;
   width: 100%;
 }
@@ -1043,6 +1044,7 @@ button {
   pointer-events: none;
   transition: opacity 0.35s ease;
   will-change: transform;
+  filter: brightness(0.92) contrast(1.08);
 }
 
 /* Trade route lines: animated strictly by JS scroll scrubbing */
@@ -1679,10 +1681,10 @@ a.contact-info__value:hover {
   position: relative;
   z-index: 2;
   width: 90%;
-  max-width: 560px;
+  max-width: 515px;
   background: var(--white);
   border-radius: var(--radius-md);
-  padding: 36px 32px;
+  padding: 28px 26px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   transform: scale(0.95);
   transition: transform 0.3s var(--ease);
@@ -1694,9 +1696,9 @@ a.contact-info__value:hover {
 
 .quote-modal__close {
   position: absolute;
-  top: 16px;
-  right: 18px;
-  font-size: 1.75rem;
+  top: 14px;
+  right: 16px;
+  font-size: 1.6rem;
   line-height: 1;
   color: var(--slate-400);
   transition: color 0.2s ease;
@@ -1707,46 +1709,62 @@ a.contact-info__value:hover {
 }
 
 .quote-modal__header {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+}
+
+.quote-modal__header .section-headline {
+  font-size: 1.42rem;
+  margin-bottom: 4px;
 }
 
 .quote-modal__header p {
   color: var(--slate-600);
-  font-size: 0.9rem;
-  margin-top: 6px;
+  font-size: 0.86rem;
+  margin-top: 4px;
+  line-height: 1.4;
 }
 
 .quote-form .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 14px;
+  gap: 12px;
+  margin-bottom: 11px;
 }
 
 .quote-form .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 11px;
 }
 
 .quote-form label {
   display: block;
   font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: var(--slate-700);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .quote-form input,
 .quote-form select,
 .quote-form textarea {
   width: 100%;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border: 1px solid var(--slate-200);
   border-radius: var(--radius-sm);
   background: var(--slate-50);
   color: var(--slate-900);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   transition: all 0.2s ease;
+}
+
+.quote-form input,
+.quote-form select {
+  height: 40px;
+  min-height: 40px;
+}
+
+.quote-form textarea {
+  min-height: 62px;
 }
 
 .quote-form input:focus,
@@ -1756,6 +1774,13 @@ a.contact-info__value:hover {
   border-color: var(--gold-500);
   outline: none;
   box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.18);
+}
+
+.quote-form button[type="submit"] {
+  min-height: 44px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  margin-top: 4px;
 }
 
 
@@ -1935,7 +1960,7 @@ a.contact-info__value:hover {
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Nav drawer: completely hidden when closed, zero peeking text */
+  /* Nav drawer: GPU-accelerated transition, zero layout reflows */
   .site-nav__links {
     position: absolute;
     top: 100%;
@@ -1946,29 +1971,29 @@ a.contact-info__value:hover {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 0 20px;
-    max-height: 0;
-    overflow: hidden;
+    padding: 14px 20px 28px;
+    max-height: calc(100vh - 64px);
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14);
     border-top: 1px solid var(--slate-100);
     border-bottom: 2px solid var(--gold-500);
     display: flex;
     visibility: hidden;
     opacity: 0;
+    transform: translateY(-8px);
     pointer-events: none;
-    transition: max-height 0.35s ease, padding 0.35s ease, opacity 0.25s ease, visibility 0.35s ease;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.22s;
+    will-change: transform, opacity;
     z-index: 10000;
   }
 
   .site-nav__links--open {
-    max-height: calc(100vh - 64px);
-    max-height: calc(100dvh - 64px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-    padding: 14px 20px 28px;
     visibility: visible;
     opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
   }
 
@@ -2495,11 +2520,11 @@ a.contact-info__value:hover {
     z-index: 5;
   }
 
-  /* Scroll Space: sets up a natural, balanced scrubbing distance on mobile without creating giant white space */
+  /* Scroll Space: extended comfortably for 2 additional global destinations */
   .global-trade-scroll-space {
     display: block;
     position: relative;
-    height: calc(100vh + 320px) !important;
+    height: calc(100vh + 520px) !important;
     margin-top: 16px;
     width: 100%;
   }
@@ -2798,8 +2823,10 @@ a.contact-info__value:hover {
   .site-footer {
     width: 100%;
   }
+  .site-footer .site-footer__top,
   .site-footer__top {
-    padding: 32px 0 0;
+    padding-top: clamp(48px, 7vw, 60px) !important;
+    padding-bottom: 0;
   }
   .site-footer .wrap {
     padding-left: clamp(18px, 5vw, 22px);
@@ -2817,6 +2844,7 @@ a.contact-info__value:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    margin-top: 10px;
     margin-bottom: 22px;
   }
   .footer-logo-box {
@@ -3027,23 +3055,65 @@ a.contact-info__value:hover {
     color: var(--slate-400);
   }
 
-  /* ===== 10. MODAL ===== */
+  /* ===== 10. MODAL (Mobile Compact) ===== */
   .quote-modal__dialog {
-    width: 95%;
-    padding: 26px 18px;
-    max-height: 90vh;
+    width: 92%;
+    max-width: 440px;
+    padding: 20px 16px;
+    max-height: 88vh;
     overflow-y: auto;
+  }
+  .quote-modal__close {
+    top: 10px;
+    right: 12px;
+    font-size: 1.5rem;
+  }
+  .quote-modal__header {
+    margin-bottom: 12px;
+  }
+  .quote-modal__header .section-tag {
+    font-size: 0.68rem;
+    margin-bottom: 3px;
+  }
+  .quote-modal__header .section-headline {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+  .quote-modal__header p {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    margin-top: 2px;
   }
   .quote-form .form-row {
     grid-template-columns: 1fr;
     gap: 0;
+    margin-bottom: 0;
+  }
+  .quote-form .form-group {
+    margin-bottom: 9px;
+  }
+  .quote-form label {
+    font-size: 0.74rem;
+    margin-bottom: 3px;
   }
   .quote-form input,
-  .quote-form select,
-  .quote-form textarea {
-    padding: 12px 14px;
+  .quote-form select {
+    padding: 7px 11px;
     font-size: 16px;
-    min-height: 44px;
+    height: 38px;
+    min-height: 38px;
+  }
+  .quote-form textarea {
+    padding: 7px 11px;
+    font-size: 16px;
+    min-height: 56px;
+  }
+  .quote-form button[type="submit"] {
+    min-height: 42px;
+    padding: 9px 16px;
+    font-size: 0.88rem;
+    margin-top: 3px;
   }
 }
 
@@ -3133,8 +3203,10 @@ a.contact-info__value:hover {
   .wrap {
     padding: 0 10px;
   }
+  .site-footer .site-footer__top,
   .site-footer__top {
-    padding: 28px 0 0;
+    padding-top: 44px !important;
+    padding-bottom: 0;
   }
   .site-footer .wrap {
     padding-left: 14px;
