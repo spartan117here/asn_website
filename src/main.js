@@ -58,31 +58,33 @@ function initStickyNav() {
 }
 
 // -------------------------------------------------------------------
-// 3. Mobile Menu & Products Dropdown Interaction (GPU-Optimized)
+// 3. Mobile Menu & Accordion Interaction (Slide Drawer)
 // -------------------------------------------------------------------
 function initMobileMenu() {
   const siteNav = document.getElementById('siteNav');
   const menuToggle = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navMenu');
-  const navDropdown = document.querySelector('.nav-dropdown');
-  const dropdownToggle = navDropdown?.querySelector('.nav-link--dropdown');
+  const mobileBackdrop = document.getElementById('mobileNavBackdrop');
+  const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+  const accordionContainer = document.getElementById('mobileNavAccordion');
+  const accordionItems = accordionContainer ? Array.from(accordionContainer.querySelectorAll('.accordion-item:not(.accordion-item--direct)')) : [];
 
   if (!menuToggle || !navMenu) return;
 
   let isMobileMenuOpen = false;
   let savedScrollY = 0;
 
-  function resetMobileProducts() {
-    if (navDropdown) {
-      navDropdown.classList.remove('nav-dropdown--open');
-      const chevron = navDropdown.querySelector('.dropdown-chevron');
-      if (chevron) chevron.style.transform = '';
-    }
+  function resetMobileAccordions() {
+    accordionItems.forEach((item) => {
+      item.classList.remove('accordion-item--open');
+      const headerBtn = item.querySelector('.accordion-header');
+      if (headerBtn) headerBtn.setAttribute('aria-expanded', 'false');
+    });
   }
 
   function preventBackgroundScroll(e) {
     if (navMenu && navMenu.contains(e.target)) {
-      return; // Allow touch scrolling inside the mobile navigation menu panel
+      return; // Allow touch scrolling inside the mobile navigation drawer
     }
     e.preventDefault();
   }
@@ -93,12 +95,14 @@ function initMobileMenu() {
     savedScrollY = window.scrollY || window.pageYOffset || 0;
 
     navMenu.classList.add('site-nav__links--open');
+    mobileBackdrop?.classList.add('mobile-nav-backdrop--active');
+    mobileBackdrop?.setAttribute('aria-hidden', 'false');
     menuToggle.classList.add('menu-toggle--open');
     menuToggle.setAttribute('aria-expanded', 'true');
     siteNav?.classList.add('site-nav--menu-open');
     document.body.classList.add('mobile-nav-locked');
 
-    resetMobileProducts();
+    resetMobileAccordions();
     window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
   }
 
@@ -107,13 +111,15 @@ function initMobileMenu() {
     isMobileMenuOpen = false;
 
     navMenu.classList.remove('site-nav__links--open');
+    mobileBackdrop?.classList.remove('mobile-nav-backdrop--active');
+    mobileBackdrop?.setAttribute('aria-hidden', 'true');
     menuToggle.classList.remove('menu-toggle--open');
     menuToggle.setAttribute('aria-expanded', 'false');
     siteNav?.classList.remove('site-nav--menu-open');
     document.body.classList.remove('mobile-nav-locked');
 
     window.removeEventListener('touchmove', preventBackgroundScroll);
-    resetMobileProducts();
+    resetMobileAccordions();
 
     // Ensure scroll position remains stable without unnecessary jitter
     const currentY = window.scrollY || window.pageYOffset || 0;
@@ -135,22 +141,62 @@ function initMobileMenu() {
     toggleMobileMenu();
   });
 
-  // Mobile-only Products click toggle
-  if (dropdownToggle) {
-    dropdownToggle.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        e.stopPropagation();
-        navDropdown?.classList.toggle('nav-dropdown--open');
+  // Close button inside the drawer header
+  drawerCloseBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeMobileMenu();
+  });
+
+  // Clicking the backdrop closes the drawer
+  mobileBackdrop?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeMobileMenu();
+  });
+
+  // Mobile Accordion Click Interaction:
+  // - Closed by default
+  // - Tapping expands it
+  // - Tapping the same category collapses it
+  // - Only one accordion section expanded at a time (closes other sections smoothly)
+  accordionItems.forEach((item) => {
+    const headerBtn = item.querySelector('.accordion-header');
+    if (!headerBtn) return;
+
+    headerBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isOpen = item.classList.contains('accordion-item--open');
+
+      // Close all other open accordion sections
+      accordionItems.forEach((other) => {
+        if (other !== item) {
+          other.classList.remove('accordion-item--open');
+          const otherBtn = other.querySelector('.accordion-header');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle clicked section
+      if (isOpen) {
+        item.classList.remove('accordion-item--open');
+        headerBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('accordion-item--open');
+        headerBtn.setAttribute('aria-expanded', 'true');
       }
     });
-  }
+  });
 
-  // Close menu on navigation link or button click (excluding the Products dropdown trigger)
+  // Close mobile drawer when tapping a child link, direct link, or quote modal button
   navMenu.querySelectorAll('a, button').forEach((item) => {
-    if (item === dropdownToggle) return;
+    // Exclude accordion header trigger buttons and drawer close button
+    if (item.classList.contains('accordion-header') || item === drawerCloseBtn) return;
+
     item.addEventListener('click', () => {
-      closeMobileMenu();
+      if (window.innerWidth <= 768) {
+        closeMobileMenu();
+      }
     });
   });
 
@@ -631,6 +677,10 @@ function initShipHover() {
   let isAnimating = false;
 
   function startShipAnimation() {
+    // Strictly desktop hover only — never run on mobile or touch devices
+    if (window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches) {
+      return;
+    }
     if (isAnimating) return;
     isAnimating = true;
 
@@ -687,48 +737,28 @@ function initShipHover() {
       scale: 1.0,
       rotation: 0,
       duration: 0.45,
-      ease: 'power2.out'
+      ease: 'power2.out',
+      onComplete: () => {
+        gsap.set(shipImg, { clearProps: 'transform' });
+      }
     });
   }
 
-  // Desktop hover interaction
+  // Desktop hover interaction only (completely disabled on mobile / touch)
   shipImageBox.addEventListener('mouseenter', () => {
     startShipAnimation();
   });
 
   shipImageBox.addEventListener('mouseleave', () => {
-    const isTouchOnly = window.matchMedia('(hover: none)').matches;
-    if (!isTouchOnly) {
+    stopShipAnimation();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
       stopShipAnimation();
+      gsap.set(shipImg, { clearProps: 'transform' });
     }
   });
-
-  // Mobile / Tablet: In-viewport auto-play
-  ScrollTrigger.create({
-    trigger: shipImageBox,
-    start: 'top 85%',
-    end: 'bottom 15%',
-    onEnter: () => {
-      const isMobile = window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches;
-      if (isMobile) startShipAnimation();
-    },
-    onLeave: () => {
-      const isMobile = window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches;
-      if (isMobile) stopShipAnimation();
-    },
-    onEnterBack: () => {
-      const isMobile = window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches;
-      if (isMobile) startShipAnimation();
-    },
-    onLeaveBack: () => {
-      const isMobile = window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches;
-      if (isMobile) stopShipAnimation();
-    }
-  });
-
-  shipImageBox.addEventListener('touchstart', () => {
-    startShipAnimation();
-  }, { passive: true });
 }
 
 // -------------------------------------------------------------------

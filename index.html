@@ -23,38 +23,140 @@
 
   <!-- ==================== MAIN NAVIGATION ==================== -->
   <header class="site-nav" id="siteNav">
+    <!-- Subtle Backdrop Overlay for Mobile Side Drawer -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
+
     <div class="wrap site-nav__inner">
       <a href="#hero" class="site-nav__brand" aria-label="ASN Imports & Exports">
-        <img src="/src/assets/logo.png" alt="ASN Imports & Exports Logo" class="brand-logo" width="180" height="70" />
+        <img src="/src/assets/logo.png"
+             alt="ASN Imports &amp; Exports Logo"
+             class="brand-logo"
+             width="90" height="44"
+             decoding="async" />
       </a>
 
       <nav class="site-nav__links" id="navMenu" aria-label="Main Navigation">
-        <a href="#hero" class="nav-link nav-link--active">Home</a>
-        <a href="#about" class="nav-link">About Us</a>
-        <div class="nav-dropdown">
-          <a href="#products" class="nav-link nav-link--dropdown">
-            Products
-            <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </a>
-          <div class="dropdown-menu">
-            <a href="#products">Food Products</a>
-            <a href="#products">Agricultural Products</a>
-            <a href="#products">Textiles &amp; Apparel</a>
-            <a href="#products">Electronics &amp; Accessories</a>
-            <a href="#products">Handicrafts &amp; Home Decor</a>
-            <a href="#products">Machinery &amp; Industrial</a>
+        <!-- Desktop Navigation Items (Hidden on mobile <=768px) -->
+        <div class="desktop-nav-list">
+          <a href="#hero" class="nav-link nav-link--active">Home</a>
+          <a href="#about" class="nav-link">About Us</a>
+          <div class="nav-dropdown">
+            <a href="#products" class="nav-link nav-link--dropdown">
+              Products
+              <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="#products">Food Products</a>
+              <a href="#products">Agricultural Products</a>
+              <a href="#products">Textiles &amp; Apparel</a>
+              <a href="#products">Electronics &amp; Accessories</a>
+              <a href="#products">Handicrafts &amp; Home Decor</a>
+              <a href="#products">Machinery &amp; Industrial</a>
+            </div>
           </div>
+          <a href="#about" class="nav-link">Import</a>
+          <a href="#about" class="nav-link">Export</a>
+          <a href="#why-choose" class="nav-link">Global Reach</a>
+          <a href="#contact" class="nav-link">Contact Us</a>
         </div>
-        <a href="#about" class="nav-link">Import</a>
-        <a href="#about" class="nav-link">Export</a>
-        <a href="#why-choose" class="nav-link">Global Reach</a>
-        <a href="#contact" class="nav-link">Contact Us</a>
 
-        <div class="mobile-nav__action">
-          <button type="button" class="btn btn--gold btn--full open-quote-modal">
-            <span>Get a Quote</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <!-- Mobile Navigation Drawer Header (Visible on mobile <=768px only) -->
+        <!-- Logo is intentionally omitted here — the main mobile header already shows it -->
+        <div class="mobile-nav__drawer-header">
+          <button type="button" class="mobile-nav__drawer-close" id="drawerCloseBtn" aria-label="Close navigation menu">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
           </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer Body (Scrollable) -->
+        <div class="mobile-nav__drawer-body">
+          <div class="mobile-nav-accordion" id="mobileNavAccordion">
+            <!-- 1. About ASN -->
+            <div class="accordion-item" data-accordion="about">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelAbout">
+                <span class="accordion-title">About ASN</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelAbout" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#about" class="accordion-link">Our Story</a>
+                  <a href="#why-choose" class="accordion-link">Why Choose ASN</a>
+                  <a href="#about" class="accordion-link">Quality &amp; Reliability</a>
+                  <a href="#why-choose" class="accordion-link">Global Reach</a>
+                  <a href="#about" class="accordion-link">Our Approach</a>
+                  <a href="#contact" class="accordion-link">Contact Us</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Products -->
+            <div class="accordion-item" data-accordion="products">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelProducts">
+                <span class="accordion-title">Products</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelProducts" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#products" class="accordion-link">Food Products &amp; Spices</a>
+                  <a href="#products" class="accordion-link">Agricultural Products</a>
+                  <a href="#products" class="accordion-link">Textiles &amp; Apparel</a>
+                  <a href="#products" class="accordion-link">Electronics</a>
+                  <a href="#products" class="accordion-link">Handicrafts</a>
+                  <a href="#products" class="accordion-link">Machinery</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Trade & Logistics -->
+            <div class="accordion-item" data-accordion="trade">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelTrade">
+                <span class="accordion-title">Trade &amp; Logistics</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelTrade" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#about" class="accordion-link">Import</a>
+                  <a href="#about" class="accordion-link">Export</a>
+                  <a href="#about" class="accordion-link">Global Sourcing</a>
+                  <a href="#about" class="accordion-link">Air Freight &amp; Logistics</a>
+                  <a href="#about" class="accordion-link">Supply &amp; Distribution</a>
+                  <a href="#why-choose" class="accordion-link">International Trade</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Global Reach -->
+            <div class="accordion-item" data-accordion="reach">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelReach">
+                <span class="accordion-title">Global Reach</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelReach" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#why-choose" class="accordion-link">Global Trade</a>
+                  <a href="#why-choose" class="accordion-link">International Markets</a>
+                  <a href="#why-choose" class="accordion-link">Sourcing Network</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Contact Us (Direct navigation item, no accordion) -->
+            <div class="accordion-item accordion-item--direct">
+              <a href="#contact" class="accordion-direct-link">
+                <span class="accordion-title">Contact Us</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mobile-nav__action">
+            <button type="button" class="btn btn--gold btn--full open-quote-modal">
+              <span>Get a Quote</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -171,14 +273,24 @@
     <!-- ==================== ABOUT SECTION ==================== -->
     <section class="about-section" id="about">
       <div class="wrap about-section__grid">
-        <!-- Left: Port Container Terminal Card -->
+        <!-- Left: Air Freight Logistics Card (Matching Right Card) -->
         <div class="about-card-visual">
-          <div class="about-card-visual__wrapper img-reveal-box">
+          <div class="about-card-visual__image-box about-card-visual__wrapper img-reveal-box">
             <img src="/src/assets/cargo-aircraft.jpg" alt="Air Cargo Logistics Terminal" class="about-card-visual__img" width="1024" height="571" />
             <div class="about-card-visual__caption">
-              <span>Expanding</span>
+              <span>EXPANDING</span>
               <strong>Global Opportunities</strong>
             </div>
+          </div>
+          <div class="about-card-visual__body">
+            <div class="about-card-visual__tag">Air Freight &amp; Logistics</div>
+            <div class="about-card-visual__accent-bar"></div>
+            <p class="about-card-visual__desc">
+              Connecting reliable air freight and global supply networks across international trade hubs.
+            </p>
+            <p class="about-card-visual__subtext">
+              Built for dependable movement across borders, our air freight solutions connect businesses to global markets with speed, precision and confidence.
+            </p>
           </div>
         </div>
 
@@ -678,12 +790,12 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="contactName">Full Name</label>
-                  <input type="text" id="contactName" name="name" placeholder="e.g. Rahul Sharma" required />
+                  <input type="text" id="contactName" name="name" required />
                   <span class="field-error" id="contactNameError"></span>
                 </div>
                 <div class="form-group">
                   <label for="contactEmail">Business Email</label>
-                  <input type="email" id="contactEmail" name="email" placeholder="e.g. rahul@company.com" required />
+                  <input type="email" id="contactEmail" name="email" required />
                   <span class="field-error" id="contactEmailError"></span>
                 </div>
               </div>
@@ -691,13 +803,13 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="contactPhone">Phone / WhatsApp</label>
-                  <input type="tel" id="contactPhone" name="phone" placeholder="+91 90873 05577" required />
+                  <input type="tel" id="contactPhone" name="phone" required />
                   <span class="field-error" id="contactPhoneError"></span>
                 </div>
                 <div class="form-group">
                   <label for="contactCategory">Product / Service</label>
                   <select id="contactCategory" name="category" required>
-                    <option value="" disabled selected>Select category...</option>
+                    <option value="" disabled selected></option>
                     <option value="Food Products">Food Products &amp; Spices</option>
                     <option value="Agricultural Products">Agricultural Commodities</option>
                     <option value="Textiles & Apparel">Textiles &amp; Apparel</option>
@@ -712,7 +824,7 @@
 
               <div class="form-group">
                 <label for="contactMessage">Message / Requirements</label>
-                <textarea id="contactMessage" name="message" rows="4" placeholder="Describe what you need — volume, destination, timeline, specs..." required></textarea>
+                <textarea id="contactMessage" name="message" rows="4" required></textarea>
                 <span class="field-error" id="contactMessageError"></span>
               </div>
 
@@ -736,7 +848,7 @@
         <!-- Col 1: Brand & Logo -->
         <div class="footer-col footer-col--brand">
           <div class="footer-logo-box">
-            <img src="/src/assets/logo.png" alt="ASN Imports &amp; Exports Logo" class="footer-logo" width="200" height="78" />
+            <img src="/src/assets/logo.png" alt="ASN Imports &amp; Exports Logo" class="footer-logo" width="90" height="44" />
           </div>
           <p class="footer-tagline">
             Connecting Markets, Delivering Trust. We bridge global sourcing and international trade with unmatched reliability.
@@ -801,6 +913,7 @@
               <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
               <a href="https://instagram.com/asn.importsandexports" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
               <a href="https://wa.me/919087305577?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%20ASN%20Imports%20%26%20Exports." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.031 0C5.397 0 0.003 5.394 0.003 12.029c0 2.119.554 4.185 1.608 6.012L0 24l6.143-1.611c1.761.96 3.747 1.468 5.888 1.468 6.634 0 12.028-5.394 12.028-12.028C24.059 5.394 18.665 0 12.031 0zm.003 21.996c-1.802 0-3.568-.484-5.111-1.401l-.367-.218-3.799.997 1.014-3.704-.239-.38a9.96 9.96 0 0 1-1.529-5.261c0-5.524 4.494-10.018 10.031-10.018 5.536 0 10.03 4.494 10.03 10.018 0 5.525-4.494 10.019-10.03 10.019zm5.501-7.514c-.302-.151-1.785-.881-2.062-.981-.277-.101-.479-.151-.681.151-.202.302-.781.981-.958 1.183-.176.201-.353.226-.655.075-.302-.151-1.275-.47-2.428-1.498-.898-.8-1.504-1.788-1.68-2.09-.176-.302-.019-.465.132-.616.136-.136.302-.352.453-.529.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.076-.151-.681-1.642-.933-2.247-.245-.589-.494-.509-.68-.519-.176-.01-.377-.01-.579-.01-.201 0-.528.076-.805.377-.277.302-1.058 1.033-1.058 2.52 0 1.486 1.083 2.923 1.234 3.124.151.201 2.132 3.256 5.166 4.566.722.312 1.285.498 1.724.638.725.23 1.385.198 1.906.12.581-.087 1.785-.73 2.037-1.433.252-.704.252-1.308.176-1.434-.075-.126-.277-.201-.579-.352z"/></svg></a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
             </div>
           </div>
           <div class="footer-script-slogan">
@@ -839,12 +952,12 @@
         <div class="form-row">
           <div class="form-group">
             <label for="quoteName">Full Name</label>
-            <input type="text" id="quoteName" name="name" placeholder="e.g. Rahul Sharma" required />
+            <input type="text" id="quoteName" name="name" required />
             <span class="field-error" id="quoteNameError"></span>
           </div>
           <div class="form-group">
             <label for="quoteEmail">Business Email</label>
-            <input type="email" id="quoteEmail" name="email" placeholder="e.g. rahul@company.com" required />
+            <input type="email" id="quoteEmail" name="email" required />
             <span class="field-error" id="quoteEmailError"></span>
           </div>
         </div>
@@ -852,13 +965,13 @@
         <div class="form-row">
           <div class="form-group">
             <label for="quotePhone">Phone / WhatsApp</label>
-            <input type="tel" id="quotePhone" name="phone" placeholder="+91 90873 05577" required />
+            <input type="tel" id="quotePhone" name="phone" required />
             <span class="field-error" id="quotePhoneError"></span>
           </div>
           <div class="form-group">
             <label for="quoteCategory">Product Category</label>
             <select id="quoteCategory" name="category" required>
-              <option value="" disabled selected>Select category...</option>
+              <option value="" disabled selected></option>
               <option value="Food Products">Food Products &amp; Spices</option>
               <option value="Agricultural Products">Agricultural Commodities</option>
               <option value="Textiles & Apparel">Textiles &amp; Apparel</option>
@@ -873,7 +986,7 @@
 
         <div class="form-group">
           <label for="quoteMessage">Shipment / Sourcing Requirements</label>
-          <textarea id="quoteMessage" name="message" rows="3" placeholder="Specify volume, target destination port, specs, and timeline..." required></textarea>
+          <textarea id="quoteMessage" name="message" rows="3" required></textarea>
           <span class="field-error" id="quoteMessageError"></span>
         </div>
 
