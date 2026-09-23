@@ -1,0 +1,362 @@
+{
+  "card": {
+    "tag": "DIV",
+    "id": "",
+    "className": "about-quote-card",
+    "rect": {
+      "top": 125.71875,
+      "left": 16,
+      "width": 358,
+      "height": 417
+    },
+    "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgb(255, 255, 255)",
+    "backgroundImage": "none",
+    "clipPath": "none",
+    "overflow": "hidden",
+    "borderRadius": "8px",
+    "position": "relative",
+    "zIndex": "auto",
+    "opacity": "1",
+    "transform": "none"
+  },
+  "top": {
+    "tag": "DIV",
+    "id": "",
+    "className": "about-quote-card__top",
+    "rect": {
+      "top": 126.71875,
+      "left": 17,
+      "width": 356,
+      "height": 175
+    },
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "clipPath": "none",
+    "overflow": "hidden",
+    "borderRadius": "0px",
+    "position": "relative",
+    "zIndex": "auto",
+    "opacity": "1",
+    "transform": "none"
+  },
+  "box": {
+    "tag": "DIV",
+    "id": "shipImageBox",
+    "className": "about-quote-card__image-box img-reveal-box",
+    "rect": {
+      "top": 301.71875,
+      "left": 17,
+      "width": 356,
+      "height": 240
+    },
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "clipPath": "inset(0%)",
+    "overflow": "hidden",
+    "borderRadius": "0px",
+    "position": "relative",
+    "zIndex": "auto",
+    "opacity": "1",
+    "transform": "none"
+  },
+  "img": {
+    "tag": "IMG",
+    "id": "shipImg",
+    "className": "about-quote-card__img",
+    "rect": {
+      "top": 291.10882568359375,
+      "left": 4.706921577453613,
+      "width": 380.586181640625,
+      "height": 257.28607177734375
+    },
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "clipPath": "none",
+    "overflow": "clip",
+    "borderRadius": "0px",
+    "position": "static",
+    "zIndex": "auto",
+    "opacity": "1",
+    "transform": "matrix(1.06659, 0.0036617, -0.0036617, 1.06659, 0, -1.9669)"
+  },
+  "fade": {
+    "tag": "DIV",
+    "id": "",
+    "className": "about-quote-card__image-fade",
+    "rect": {
+      "top": 301.71875,
+      "left": 17,
+      "width": 40,
+      "height": 32
+    },
+    "background": "rgba(0, 0, 0, 0) linear-gradient(rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%) repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)",
+    "clipPath": "none",
+    "overflow": "visible",
+    "borderRadius": "0px",
+    "position": "absolute",
+    "zIndex": "2",
+    "opacity": "1",
+    "transform": "none"
+  },
+  "water": {
+    "tag": "DIV",
+    "id": "shipWaterOverlay",
+    "className": "about-quote-card__water-overlay",
+    "rect": {
+      "top": 495.71875,
+      "left": 17,
+      "width": 356,
+      "height": 46
+    },
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "clipPath": "none",
+    "overflow": "hidden",
+    "borderRadius": "0px",
+    "position": "absolute",
+    "zIndex": "2",
+    "opacity": "1",
+    "transform": "none"
+  },
+  "boxBefore": {
+    "content": "none",
+    "display": "inline",
+    "width": "auto",
+    "height": "auto",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "position": "static"
+  },
+  "boxAfter": {
+    "content": "none",
+    "display": "inline",
+    "width": "auto",
+    "height": "auto",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "position": "static"
+  },
+  "cardBefore": {
+    "content": "none",
+    "display": "block",
+    "width": "auto",
+    "height": "auto",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "position": "static"
+  },
+  "cardAfter": {
+    "content": "none",
+    "display": "block",
+    "width": "auto",
+    "height": "auto",
+    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+    "position": "static"
+  },
+  "elementsAtPoints": [
+    {
+      "point": {
+        "x": 9.706921577453613,
+        "y": 296.10882568359375
+      },
+      "els": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "wrap about-section__grid",
+          "rect": {}
+        },
+        {
+          "tag": "SECTION",
+          "id": "about",
+          "className": "about-section",
+          "rect": {}
+        },
+        {
+          "tag": "MAIN",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "HTML",
+          "id": "",
+          "className": "",
+          "rect": {}
+        }
+      ]
+    },
+    {
+      "point": {
+        "x": 24.706921577453613,
+        "y": 301.10882568359375
+      },
+      "els": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "about-quote-card__top",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "about-quote-card",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "wrap about-section__grid",
+          "rect": {}
+        },
+        {
+          "tag": "SECTION",
+          "id": "about",
+          "className": "about-section",
+          "rect": {}
+        },
+        {
+          "tag": "MAIN",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "HTML",
+          "id": "",
+          "className": "",
+          "rect": {}
+        }
+      ]
+    },
+    {
+      "point": {
+        "x": 54.70692157745361,
+        "y": 306.10882568359375
+      },
+      "els": [
+        {
+          "tag": "IMG",
+          "id": "shipImg",
+          "className": "about-quote-card__img",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "shipImageBox",
+          "className": "about-quote-card__image-box img-reveal-box",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "about-quote-card",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "wrap about-section__grid",
+          "rect": {}
+        },
+        {
+          "tag": "SECTION",
+          "id": "about",
+          "className": "about-section",
+          "rect": {}
+        },
+        {
+          "tag": "MAIN",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "HTML",
+          "id": "",
+          "className": "",
+          "rect": {}
+        }
+      ]
+    },
+    {
+      "point": {
+        "x": 104.70692157745361,
+        "y": 306.10882568359375
+      },
+      "els": [
+        {
+          "tag": "IMG",
+          "id": "shipImg",
+          "className": "about-quote-card__img",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "shipImageBox",
+          "className": "about-quote-card__image-box img-reveal-box",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "about-quote-card",
+          "rect": {}
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "wrap about-section__grid",
+          "rect": {}
+        },
+        {
+          "tag": "SECTION",
+          "id": "about",
+          "className": "about-section",
+          "rect": {}
+        },
+        {
+          "tag": "MAIN",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "className": "",
+          "rect": {}
+        },
+        {
+          "tag": "HTML",
+          "id": "",
+          "className": "",
+          "rect": {}
+        }
+      ]
+    }
+  ]
+}

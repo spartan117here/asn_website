@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASN Imports &amp; Exports — Connecting Markets, Delivering Trust</title>
+  <meta name="description" content="ASN Imports &amp; Exports is your reliable partner in global trade. Sourcing, supplying, and delivering high-quality products across international markets from India to the world." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/src/assets/logo.png" />
+
+  <!-- Google Fonts: Playfair Display (Headings), Inter & Outfit (Body & UI), Caveat (Script accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+
+  <!-- Preload Critical Above-The-Fold Hero Image for Instant Sharp Render -->
+  <link rel="preload" as="image" href="/src/assets/hero-trade.jpg" fetchpriority="high" />
+</head>
+<body>
+
+  <!-- ==================== MAIN NAVIGATION ==================== -->
+  <header class="site-nav" id="siteNav">
+    <!-- Subtle Backdrop Overlay for Mobile Side Drawer -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
+
+    <div class="wrap site-nav__inner">
+      <a href="#hero" class="site-nav__brand" aria-label="ASN Imports & Exports">
+        <img src="/src/assets/logo.png"
+             alt="ASN Imports &amp; Exports Logo"
+             class="brand-logo"
+             width="90" height="44"
+             decoding="async" />
+      </a>
+
+      <nav class="site-nav__links" id="navMenu" aria-label="Main Navigation">
+        <!-- Desktop Navigation Items (Hidden on mobile <=768px) -->
+        <div class="desktop-nav-list">
+          <a href="#hero" class="nav-link nav-link--active">Home</a>
+          <a href="#about" class="nav-link">About Us</a>
+          <div class="nav-dropdown">
+            <a href="#products" class="nav-link nav-link--dropdown">
+              Products
+              <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="#products">Food Products</a>
+              <a href="#products">Agricultural Products</a>
+              <a href="#products">Textiles &amp; Apparel</a>
+              <a href="#products">Electronics &amp; Accessories</a>
+              <a href="#products">Handicrafts &amp; Home Decor</a>
+              <a href="#products">Machinery &amp; Industrial</a>
+            </div>
+          </div>
+          <a href="#about" class="nav-link">Import</a>
+          <a href="#about" class="nav-link">Export</a>
+          <a href="#why-choose" class="nav-link">Global Reach</a>
+          <a href="#contact" class="nav-link">Contact Us</a>
+        </div>
+
+        <!-- Mobile Navigation Drawer Header (Visible on mobile <=768px only) -->
+        <!-- Logo is intentionally omitted here — the main mobile header already shows it -->
+        <div class="mobile-nav__drawer-header">
+          <button type="button" class="mobile-nav__drawer-close" id="drawerCloseBtn" aria-label="Close navigation menu">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer Body (Scrollable) -->
+        <div class="mobile-nav__drawer-body">
+          <div class="mobile-nav-accordion" id="mobileNavAccordion">
+            <!-- 1. About ASN -->
+            <div class="accordion-item" data-accordion="about">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelAbout">
+                <span class="accordion-title">About ASN</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelAbout" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#about" class="accordion-link">Our Story</a>
+                  <a href="#why-choose" class="accordion-link">Why Choose ASN</a>
+                  <a href="#about" class="accordion-link">Quality &amp; Reliability</a>
+                  <a href="#why-choose" class="accordion-link">Global Reach</a>
+                  <a href="#about" class="accordion-link">Our Approach</a>
+                  <a href="#contact" class="accordion-link">Contact Us</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Products -->
+            <div class="accordion-item" data-accordion="products">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelProducts">
+                <span class="accordion-title">Products</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelProducts" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#products" class="accordion-link">Food Products &amp; Spices</a>
+                  <a href="#products" class="accordion-link">Agricultural Products</a>
+                  <a href="#products" class="accordion-link">Textiles &amp; Apparel</a>
+                  <a href="#products" class="accordion-link">Electronics</a>
+                  <a href="#products" class="accordion-link">Handicrafts</a>
+                  <a href="#products" class="accordion-link">Machinery</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Trade & Logistics -->
+            <div class="accordion-item" data-accordion="trade">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelTrade">
+                <span class="accordion-title">Trade &amp; Logistics</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelTrade" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#about" class="accordion-link">Import</a>
+                  <a href="#about" class="accordion-link">Export</a>
+                  <a href="#about" class="accordion-link">Global Sourcing</a>
+                  <a href="#about" class="accordion-link">Air Freight &amp; Logistics</a>
+                  <a href="#about" class="accordion-link">Supply &amp; Distribution</a>
+                  <a href="#why-choose" class="accordion-link">International Trade</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Global Reach -->
+            <div class="accordion-item" data-accordion="reach">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="accPanelReach">
+                <span class="accordion-title">Global Reach</span>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="accordion-panel" id="accPanelReach" role="region">
+                <div class="accordion-panel__inner">
+                  <a href="#why-choose" class="accordion-link">Global Trade</a>
+                  <a href="#why-choose" class="accordion-link">International Markets</a>
+                  <a href="#why-choose" class="accordion-link">Sourcing Network</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Contact Us (Direct navigation item, no accordion) -->
+            <div class="accordion-item accordion-item--direct">
+              <a href="#contact" class="accordion-direct-link">
+                <span class="accordion-title">Contact Us</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mobile-nav__action">
+            <button type="button" class="btn btn--gold btn--full open-quote-modal">
+              <span>Get a Quote</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="site-nav__actions">
+        <button type="button" class="btn btn--gold open-quote-modal">
+          <span>Get a Quote</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="hero">
+      <div class="hero__photo-container">
+        <img
+          src="/src/assets/hero-trade.jpg"
+          alt="Global Trade Cargo Ship and Aircraft"
+          class="hero__photo-img"
+          width="1376"
+          height="768"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+        />
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="wrap hero__content">
+        <div class="hero__left">
+          <div class="hero__badge">
+            <span class="hero__badge-text">GLOBAL TRADE</span>
+            <span class="hero__badge-sep">|</span>
+            <span class="hero__badge-text">A BRIGHTER TOMORROW</span>
+          </div>
+
+          <h1 class="hero__title">
+            Connecting Markets<br />
+            <span class="text-gold">Delivering Trust</span>
+          </h1>
+
+          <p class="hero__lead">
+            Your reliable partner in global trade. We source, supply and deliver
+            high-quality products across international markets.
+          </p>
+
+          <div class="hero__buttons">
+            <a href="#products" class="btn btn--gold">
+              <span>Explore Our Products</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#contact" class="btn btn--outline">
+              <span>Contact Us</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <!-- Calligraphic accent directly from the design mockup -->
+          <div class="hero__calligraphy">
+            <span class="script-accent">From India<br />to the World</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TRUST PILLARS RIBBON ==================== -->
+    <section class="trust-ribbon" aria-label="Key Strengths">
+      <div class="wrap">
+        <div class="trust-ribbon__card">
+          <div class="trust-item">
+            <div class="trust-item__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <span class="trust-item__title">Trusted Trade Partner</span>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-item__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <span class="trust-item__title">Global Network</span>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-item__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+            </div>
+            <span class="trust-item__title">Quality Products</span>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-item__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 17l-5-5m0 0l5-5m-5 5h12"/><path d="M18 10v4a2 2 0 0 1-2 2H6"/></svg>
+            </div>
+            <span class="trust-item__title">Reliable Partnerships</span>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-item__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="4 8 12 2 20 8"/></svg>
+            </div>
+            <span class="trust-item__title">Growth Together</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section class="about-section" id="about">
+      <div class="wrap about-section__grid">
+        <!-- Left: Air Freight Logistics Card (Matching Right Card) -->
+        <div class="about-card-visual">
+          <div class="about-card-visual__image-box about-card-visual__wrapper img-reveal-box">
+            <img src="/src/assets/cargo-aircraft.jpg" alt="Air Cargo Logistics Terminal" class="about-card-visual__img" width="1024" height="571" />
+            <div class="about-card-visual__caption">
+              <span>EXPANDING</span>
+              <strong>Global Opportunities</strong>
+            </div>
+          </div>
+          <div class="about-card-visual__body">
+            <div class="about-card-visual__tag">Air Freight &amp; Logistics</div>
+            <div class="about-card-visual__accent-bar"></div>
+            <p class="about-card-visual__desc">
+              Connecting reliable air freight and global supply networks across international trade hubs.
+            </p>
+            <p class="about-card-visual__subtext">
+              Built for dependable movement across borders, our air freight solutions connect businesses to global markets with speed, precision and confidence.
+            </p>
+          </div>
+        </div>
+
+        <!-- Center: Company Narrative & Badges -->
+        <div class="about-content">
+          <span class="section-tag">ABOUT ASN IMPORTS &amp; EXPORTS</span>
+          <h2 class="section-headline">
+            Driving Global <span class="text-gold">Trade</span><br />
+            With Confidence
+          </h2>
+          <p class="about-content__desc">
+            We are committed to connecting businesses across borders by sourcing, supplying
+            and delivering quality products worldwide. With a customer-focused approach,
+            we aim to build long-term partnerships and create new opportunities in global markets.
+          </p>
+
+          <div class="about-badges">
+            <div class="badge-item">
+              <div class="badge-item__icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <span class="badge-item__label">Quality<br />Assurance</span>
+            </div>
+
+            <div class="badge-item">
+              <div class="badge-item__icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <span class="badge-item__label">Customer<br />Focused</span>
+            </div>
+
+            <div class="badge-item">
+              <div class="badge-item__icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+              </div>
+              <span class="badge-item__label">Expanding<br />Global Presence</span>
+            </div>
+          </div>
+
+          <div class="about-content__cta">
+            <button type="button" class="btn btn--gold open-quote-modal">
+              <span>Know More About Us</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Quote Card with World Map & Ocean Vessel (3:4 Vertical Card) -->
+        <div class="about-quote-card">
+          <div class="about-quote-card__top">
+            <div class="about-quote-card__map-box">
+              <img src="/src/assets/world-map.svg" alt="World Map Silhouette" class="about-quote-card__map-img" />
+            </div>
+            <div class="about-quote-card__body">
+              <h3 class="about-quote-card__quote">
+                &ldquo;Connecting<br />Businesses<br />Across Borders&rdquo;
+              </h3>
+              <div class="about-quote-card__accent-bar"></div>
+            </div>
+          </div>
+          <div class="about-quote-card__image-box img-reveal-box" id="shipImageBox">
+            <img src="/src/assets/ship-sea.jpg" alt="Ocean Vessel Sailing at Sunset" class="about-quote-card__img" id="shipImg" />
+            <div class="about-quote-card__image-fade"></div>
+            <!-- Interactive Water Motion Overlay -->
+            <div class="about-quote-card__water-overlay" id="shipWaterOverlay">
+              <div class="about-quote-card__water-track" id="shipWaterTrack">
+                <svg class="about-quote-card__water-tile" viewBox="0 0 600 120" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+                      <stop offset="35%" stop-color="#f6b333" stop-opacity="0.22"/>
+                      <stop offset="100%" stop-color="#0a1830" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#fed976" stop-opacity="0.35"/>
+                      <stop offset="50%" stop-color="#142e54" stop-opacity="0.18"/>
+                      <stop offset="100%" stop-color="#050c18" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,45 C75,25 150,65 225,45 C300,25 375,65 450,45 C525,25 600,45 600,45 L600,120 L0,120 Z" fill="url(#waveGrad)"/>
+                  <path d="M0,60 C75,75 150,45 225,60 C300,75 375,45 450,60 C525,75 600,60 600,60 L600,120 L0,120 Z" fill="url(#waveGrad2)"/>
+                  <path d="M0,78 C75,70 150,86 225,78 C300,70 375,86 450,78 C525,70 600,78 600,78 L600,120 L0,120 Z" fill="#ffffff" opacity="0.15"/>
+                </svg>
+                <svg class="about-quote-card__water-tile" viewBox="0 0 600 120" preserveAspectRatio="none">
+                  <path d="M0,45 C75,25 150,65 225,45 C300,25 375,65 450,45 C525,25 600,45 600,45 L600,120 L0,120 Z" fill="url(#waveGrad)"/>
+                  <path d="M0,60 C75,75 150,45 225,60 C300,75 375,45 450,60 C525,75 600,60 600,60 L600,120 L0,120 Z" fill="url(#waveGrad2)"/>
+                  <path d="M0,78 C75,70 150,86 225,78 C300,70 375,86 450,78 C525,70 600,78 600,78 L600,120 L0,120 Z" fill="#ffffff" opacity="0.15"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== OUR PRODUCTS ==================== -->
+    <section class="products-section" id="products">
+      <div class="wrap">
+        <div class="products-section__header">
+          <div>
+            <span class="section-tag">OUR PRODUCTS</span>
+            <h2 class="section-headline">Wide Range of Global Products</h2>
+          </div>
+          <a href="#contact" class="btn btn--pill-outline open-quote-modal">
+            <span>View All Products</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <div class="products-grid">
+          <!-- 1. Food Products -->
+          <article class="product-card" data-category="Food Products">
+            <div class="product-card__thumb">
+              <img src="/src/assets/products/food-products.jpg" alt="Food Products &amp; Spices" loading="lazy" />
+              <div class="product-card__overlay">
+                <span class="product-card__quick-view">Enquire Now &rarr;</span>
+              </div>
+            </div>
+            <h3 class="product-card__title">Food Products</h3>
+          </article>
+
+          <!-- 2. Agricultural Products -->
+          <article class="product-card" data-category="Agricultural Products">
+            <div class="product-card__thumb">
+              <img src="/src/assets/products/agri-products.jpg" alt="Agricultural Grains and Pulses" loading="lazy" />
+              <div class="product-card__overlay">
+                <span class="product-card__quick-view">Enquire Now &rarr;</span>
+              </div>
+            </div>
+            <h3 class="product-card__title">Agricultural Products</h3>
+          </article>
+
+          <!-- 3. Textiles & Apparel -->
+          <article class="product-card" data-category="Textiles & Apparel">
+            <div class="product-card__thumb">
+              <img src="/src/assets/products/textiles-apparel.jpg" alt="Textiles &amp; Apparel" loading="lazy" />
+              <div class="product-card__overlay">
+                <span class="product-card__quick-view">Enquire Now &rarr;</span>
+              </div>
+            </div>
+            <h3 class="product-card__title">Textiles &amp; Apparel</h3>
+          </article>
+
+          <!-- 4. Electronics & Accessories -->
+          <article class="product-card" data-category="Electronics & Accessories">
+            <div class="product-card__thumb">
+              <img src="/src/assets/products/electronics-accessories.jpg" alt="Electronics &amp; Accessories" loading="lazy" />
+              <div class="product-card__overlay">
+                <span class="product-card__quick-view">Enquire Now &rarr;</span>
+              </div>
+            </div>
+            <h3 class="product-card__title">Electronics &amp; Accessories</h3>
+          </article>
+
+          <!-- 5. Handicrafts & Home Decor -->
+          <article class="product-card" data-category="Handicrafts & Home Decor">
+            <div class="product-card__thumb">
+              <img src="/src/assets/products/handicrafts-decor.jpg" alt="Handicrafts &amp; Home Decor" loading="lazy" />
+              <div class="product-card__overlay">
+                <span class="product-card__quick-view">Enquire Now &rarr;</span>
+              </div>
+            </div>
+            <h3 class="product-card__title">Handicrafts &amp; Home Decor</h3>
+          </article>
+
+          <!-- 6. Machinery & Industrial Products -->
+          <article class="product-card" data-category="Machinery & Industrial Products">
+            <div class="product-card__thumb">
+              <img src="/src/assets/products/machinery-industrial.jpg" alt="Machinery &amp; Industrial Products" loading="lazy" />
+              <div class="product-card__overlay">
+                <span class="product-card__quick-view">Enquire Now &rarr;</span>
+              </div>
+            </div>
+            <h3 class="product-card__title">Machinery &amp; Industrial Products</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE ASN ==================== -->
+    <section class="why-choose" id="why-choose">
+      <div class="wrap why-choose__wrap">
+        <!-- Mobile-Only Connected Globe Banner (Shown at top of section on mobile <=768px) -->
+        <div class="why-choose__globe-card why-choose__globe-card--mobile-only">
+          <div class="why-choose__globe-bg img-reveal-box">
+            <img src="/src/assets/globe-connected.jpg" alt="Global Digital Network" class="why-choose__globe-img" />
+            <div class="why-choose__globe-overlay"></div>
+          </div>
+          <div class="why-choose__globe-content">
+            <h3 class="why-choose__globe-heading">
+              LET'S BUILD A<br />
+              STRONGER, BRIGHTER,<br />
+              CONNECTED WORLD.
+            </h3>
+            <div class="why-choose__bar"></div>
+          </div>
+        </div>
+
+        <!-- Section Header: Title & Stats Grid -->
+        <div class="why-choose__header-area">
+          <span class="section-tag">WHY CHOOSE ASN</span>
+          <h2 class="section-headline">More Than Trade, A Trusted Relationship</h2>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card__number" data-target="100" data-suffix="+">100+</div>
+              <div class="stat-card__label">Global Partners</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__number" data-target="500" data-suffix="+">500+</div>
+              <div class="stat-card__label">Products</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__number" data-target="10" data-suffix="+">10+</div>
+              <div class="stat-card__label">Countries</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__number" data-target="100" data-suffix="%">100%</div>
+              <div class="stat-card__label">Commitment</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll-Synchronized Global Trade Section -->
+        <div class="global-trade-scroll-space" id="globalTradeScrollSpace">
+          <div class="why-choose__cards-row" id="whyChooseCardsRow">
+            <!-- Desktop-Only Left Card: Connected Globe Banner (Equal Width & Equal Height with Right Card) -->
+            <div class="why-choose__globe-card why-choose__globe-card--desktop-only">
+              <div class="why-choose__globe-bg img-reveal-box">
+                <img src="/src/assets/globe-connected.jpg" alt="Global Digital Network" class="why-choose__globe-img" />
+                <div class="why-choose__globe-overlay"></div>
+              </div>
+              <div class="why-choose__globe-content">
+                <h3 class="why-choose__globe-heading">
+                  LET'S BUILD A<br />
+                  STRONGER, BRIGHTER,<br />
+                  CONNECTED WORLD.
+                </h3>
+                <div class="why-choose__bar"></div>
+              </div>
+            </div>
+
+            <!-- Right Card: Global Trade Animated Watermark -->
+            <div class="why-choose__watermark" id="globalTradeWatermarkCard">
+              <div class="watermark-map" style="background-image: url('/src/assets/world-map.svg');"></div>
+              <div class="watermark-graphic-mobile" aria-hidden="true">
+                <svg viewBox="0 0 1016 515" class="watermark-svg-canvas" id="globalTradeSvg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                    <radialGradient id="nodeGoldGrad" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#ffffff" />
+                      <stop offset="40%" stop-color="#ffd166" />
+                      <stop offset="100%" stop-color="#e5a93c" />
+                    </radialGradient>
+                    <!-- 3D Spherical Jewel Core Gradient -->
+                    <radialGradient id="nodeJewelGrad" cx="35%" cy="35%" r="65%">
+                      <stop offset="0%" stop-color="#ffffff" />
+                      <stop offset="28%" stop-color="#ffe58f" />
+                      <stop offset="70%" stop-color="#e5a93c" />
+                      <stop offset="100%" stop-color="#995d02" />
+                    </radialGradient>
+                    <!-- 3D Node Ambient Radial Halo -->
+                    <radialGradient id="nodeHaloGrad" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#ffd166" stop-opacity="0.38" />
+                      <stop offset="45%" stop-color="#e5a93c" stop-opacity="0.14" />
+                      <stop offset="100%" stop-color="#e5a93c" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+
+                  <!-- Premium 3D World Map Background (Layered Topographic Depth, Raised Continents & Oceanic Atmosphere) -->
+                  <image href="/src/assets/global-trade-map-3d.svg" x="0" y="0" width="1016" height="515" class="watermark-world-bg" opacity="0.92" />
+
+                  <!-- Illustrative Global Trade Routes (Drawn via scroll scrubbing) -->
+                  <!-- 1. India -> Middle East -->
+                  <path id="route-in-me" class="trade-route-line" d="M 705 248 Q 645 210 595 205" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 2. Middle East -> Europe -->
+                  <path id="route-me-eu" class="trade-route-line" d="M 595 205 Q 560 160 515 135" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 3. India -> Southeast Asia -->
+                  <path id="route-in-sea" class="trade-route-line" d="M 705 248 Q 755 265 795 295" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 4. India -> Africa -->
+                  <path id="route-in-af" class="trade-route-line" d="M 705 248 Q 635 290 585 320" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 5. India -> East Asia -->
+                  <path id="route-in-ea" class="trade-route-line" d="M 705 248 Q 770 200 825 195" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 6. Europe -> North America -->
+                  <path id="route-eu-na" class="trade-route-line" d="M 515 135 Q 400 110 285 180" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 7. North America -> South America (New Destination 1) -->
+                  <path id="route-na-sa" class="trade-route-line" d="M 285 180 Q 305 275 355 350" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 8. Southeast Asia -> Australia (New Destination 2) -->
+                  <path id="route-sea-aus" class="trade-route-line" d="M 795 295 Q 840 330 875 380" stroke="#e5a93c" stroke-width="2.4" stroke-linecap="round" opacity="0.75" />
+                  <!-- 9. Maritime Connecting Loop (South America -> India) -->
+                  <path id="route-loop" class="trade-route-line trade-route-line--loop" d="M 355 350 Q 520 450 705 248" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.35" />
+
+                  <!-- Moving Golden Particles (Position scrubbed via JS along paths) -->
+                  <circle id="particle-in-me" class="trade-particle" r="5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-me-eu" class="trade-particle" r="5" cx="595" cy="205" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-in-sea" class="trade-particle" r="4.5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-in-af" class="trade-particle" r="4.5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-in-ea" class="trade-particle" r="4.5" cx="705" cy="248" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-eu-na" class="trade-particle" r="5" cx="515" cy="135" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-na-sa" class="trade-particle" r="5" cx="285" cy="180" opacity="0" filter="url(#goldGlow)" />
+                  <circle id="particle-sea-aus" class="trade-particle" r="4.5" cx="795" cy="295" opacity="0" filter="url(#goldGlow)" />
+
+                  <!-- Subtle Logistics Indicators -->
+                  <!-- Golden Aircraft along Transatlantic route -->
+                  <g id="aircraft-indicator" class="logistics-indicator" transform="translate(515, 135)" opacity="0" filter="url(#goldGlow)">
+                    <path d="M 0 -7 L 2 -1 L 8 2 L 8 4 L 2 3 L 1 8 L 3 10 L 3 11 L 0 10.5 L -3 11 L -3 10 L -1 8 L -2 3 L -8 4 L -8 2 L -2 -1 Z" fill="#ffd166" stroke="#e5a93c" stroke-width="0.7" />
+                  </g>
+                  <!-- Golden Cargo Ship along maritime curve -->
+                  <g id="ship-indicator" class="logistics-indicator" transform="translate(705, 248)" opacity="0" filter="url(#goldGlow)">
+                    <path d="M -8 2 L 8 2 L 6 6 L -6 6 Z" fill="#ffd166" stroke="#e5a93c" stroke-width="0.7" />
+                    <rect x="-4" y="-2" width="5" height="4" fill="#ffd166" />
+                    <rect x="2" y="-4" width="3" height="6" fill="#ffd166" />
+                    <line x1="-2" y1="-5" x2="-2" y2="-2" stroke="#ffd166" stroke-width="0.8" />
+                  </g>
+
+                  <!-- Illustrative Trade Nodes (Progressively illuminated with 3D Depth & Halos) -->
+                  <!-- 1. India (Primary Origin Hub) -->
+                  <g id="node-india" class="trade-node" transform="translate(705, 248)" opacity="0">
+                    <circle r="26" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="18" stroke="#e5a93c" stroke-width="2" fill="none" class="node-ring" />
+                    <circle r="12" stroke="rgba(255, 209, 102, 0.45)" stroke-width="1" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="6.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="30" class="node-label">INDIA</text>
+                  </g>
+                  <!-- 2. Middle East -->
+                  <g id="node-me" class="trade-node" transform="translate(595, 205)" opacity="0">
+                    <circle r="20" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="14" stroke="#e5a93c" stroke-width="1.8" fill="none" class="node-ring" />
+                    <circle r="9.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.9" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="-14" class="node-label">MIDDLE EAST</text>
+                  </g>
+                  <!-- 3. Europe -->
+                  <g id="node-europe" class="trade-node" transform="translate(515, 135)" opacity="0">
+                    <circle r="20" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="14" stroke="#e5a93c" stroke-width="1.8" fill="none" class="node-ring" />
+                    <circle r="9.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.9" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="-14" class="node-label">EUROPE</text>
+                  </g>
+                  <!-- 4. Southeast Asia -->
+                  <g id="node-sea" class="trade-node" transform="translate(795, 295)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="26" class="node-label">SE ASIA</text>
+                  </g>
+                  <!-- 5. Africa -->
+                  <g id="node-africa" class="trade-node" transform="translate(585, 320)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="26" class="node-label">AFRICA</text>
+                  </g>
+                  <!-- 6. East Asia -->
+                  <g id="node-ea" class="trade-node" transform="translate(825, 195)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="-14" class="node-label">EAST ASIA</text>
+                  </g>
+                  <!-- 7. North America -->
+                  <g id="node-na" class="trade-node" transform="translate(285, 180)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="-14" class="node-label">NORTH AMERICA</text>
+                  </g>
+                  <!-- 8. South America (New Destination 1) -->
+                  <g id="node-sa" class="trade-node" transform="translate(355, 350)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="26" class="node-label">SOUTH AMERICA</text>
+                  </g>
+                  <!-- 9. Australia (New Destination 2) -->
+                  <g id="node-aus" class="trade-node" transform="translate(875, 380)" opacity="0">
+                    <circle r="18" fill="url(#nodeHaloGrad)" class="node-halo" />
+                    <circle r="13" stroke="#e5a93c" stroke-width="1.6" fill="none" class="node-ring" />
+                    <circle r="8.5" stroke="rgba(255, 209, 102, 0.45)" stroke-width="0.8" stroke-dasharray="2 3" class="node-tech-ring" fill="none" />
+                    <circle r="4.5" fill="url(#nodeJewelGrad)" class="node-core" filter="url(#goldGlow)" />
+                    <text x="0" y="26" class="node-label">AUSTRALIA</text>
+                  </g>
+                </svg>
+              </div>
+              <div class="watermark-script">
+                <span>Global Trade</span>
+                <em>A Brighter Tomorrow</em>
+                <span class="watermark-sub">Connecting businesses across borders</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA BANNER ==================== -->
+    <section class="cta-banner">
+      <div class="cta-banner__bg-container img-reveal-box">
+        <img src="/src/assets/cta-landscape.jpg" alt="Global Trade Horizon" class="cta-banner__bg-img" />
+        <div class="cta-banner__overlay"></div>
+      </div>
+      <div class="wrap cta-banner__inner">
+        <div class="cta-banner__text">
+          <h2 class="cta-banner__title">Ready to Take Your Business Global?</h2>
+          <p class="cta-banner__sub">Let's connect and create new opportunities together.</p>
+        </div>
+        <div class="cta-banner__action">
+          <button type="button" class="btn btn--gold btn--lg open-quote-modal">
+            <span>Get in Touch</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section class="contact-section" id="contact">
+      <div class="wrap">
+        <div class="contact-section__header">
+          <span class="section-tag">GET IN TOUCH</span>
+          <h2 class="section-headline">We'd Love to Hear From You</h2>
+        </div>
+
+        <div class="contact-section__grid">
+          <!-- Left: Contact Info -->
+          <div class="contact-info">
+            <h3 class="contact-info__title">Contact ASN Imports &amp; Exports</h3>
+            <p class="contact-info__sub">Reach us directly — our team responds within one business day.</p>
+
+            <ul class="contact-info__list">
+              <li class="contact-info__item">
+                <div class="contact-info__icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div class="contact-info__detail">
+                  <span class="contact-info__label">Address</span>
+                  <span class="contact-info__value">Chennai, Tamil Nadu, India</span>
+                </div>
+              </li>
+              <li class="contact-info__item">
+                <div class="contact-info__icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="contact-info__detail">
+                  <span class="contact-info__label">Phone</span>
+                  <a href="tel:+919087305577" class="contact-info__value">+91 90873 05577</a>
+                </div>
+              </li>
+              <li class="contact-info__item">
+                <div class="contact-info__icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div class="contact-info__detail">
+                  <span class="contact-info__label">Email</span>
+                  <a href="mailto:asn.importsandexports@gmail.com" class="contact-info__value">asn.importsandexports@gmail.com</a>
+                </div>
+              </li>
+              <li class="contact-info__item">
+                <div class="contact-info__icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="contact-info__detail">
+                  <span class="contact-info__label">Business Hours</span>
+                  <span class="contact-info__value">Mon – Sat: 9:00 AM – 6:00 PM IST</span>
+                </div>
+              </li>
+              <li class="contact-info__item">
+                <div class="contact-info__icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.031 0C5.397 0 0.003 5.394 0.003 12.029c0 2.119.554 4.185 1.608 6.012L0 24l6.143-1.611c1.761.96 3.747 1.468 5.888 1.468 6.634 0 12.028-5.394 12.028-12.028C24.059 5.394 18.665 0 12.031 0zm.003 21.996c-1.802 0-3.568-.484-5.111-1.401l-.367-.218-3.799.997 1.014-3.704-.239-.38a9.96 9.96 0 0 1-1.529-5.261c0-5.524 4.494-10.018 10.031-10.018 5.536 0 10.03 4.494 10.03 10.018 0 5.525-4.494 10.019-10.03 10.019z"/></svg>
+                </div>
+                <div class="contact-info__detail">
+                  <span class="contact-info__label">WhatsApp</span>
+                  <a href="https://wa.me/919087305577?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%20ASN%20Imports%20%26%20Exports." target="_blank" rel="noopener" class="contact-info__value">Chat on WhatsApp →</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: Enquiry Form -->
+          <div class="contact-form-card">
+            <h3 class="contact-form-card__title">Send Us a Message</h3>
+            <p class="contact-form-card__sub">Fill in your details and we'll get back to you promptly.</p>
+
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactName">Full Name</label>
+                  <input type="text" id="contactName" name="name" required />
+                  <span class="field-error" id="contactNameError"></span>
+                </div>
+                <div class="form-group">
+                  <label for="contactEmail">Business Email</label>
+                  <input type="email" id="contactEmail" name="email" required />
+                  <span class="field-error" id="contactEmailError"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactPhone">Phone / WhatsApp</label>
+                  <input type="tel" id="contactPhone" name="phone" required />
+                  <span class="field-error" id="contactPhoneError"></span>
+                </div>
+                <div class="form-group">
+                  <label for="contactCategory">Product / Service</label>
+                  <select id="contactCategory" name="category" required>
+                    <option value="" disabled selected></option>
+                    <option value="Food Products">Food Products &amp; Spices</option>
+                    <option value="Agricultural Products">Agricultural Commodities</option>
+                    <option value="Textiles & Apparel">Textiles &amp; Apparel</option>
+                    <option value="Electronics & Accessories">Electronics &amp; Accessories</option>
+                    <option value="Handicrafts & Home Decor">Handicrafts &amp; Home Decor</option>
+                    <option value="Machinery & Industrial">Machinery &amp; Industrial</option>
+                    <option value="Other">Other / General Enquiry</option>
+                  </select>
+                  <span class="field-error" id="contactCategoryError"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">Message / Requirements</label>
+                <textarea id="contactMessage" name="message" rows="4" required></textarea>
+                <span class="field-error" id="contactMessageError"></span>
+              </div>
+
+              <button type="submit" class="btn btn--gold btn--full">
+                <span>Send Enquiry</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+
+              <p class="contact-form-feedback" id="contactFormFeedback"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="wrap site-footer__top">
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Logo -->
+        <div class="footer-col footer-col--brand">
+          <div class="footer-logo-box">
+            <img src="/src/assets/logo.png" alt="ASN Imports &amp; Exports Logo" class="footer-logo" width="90" height="44" />
+          </div>
+          <p class="footer-tagline">
+            Connecting Markets, Delivering Trust. We bridge global sourcing and international trade with unmatched reliability.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col footer-col--links">
+          <h4 class="footer-col__title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#about">Import</a></li>
+            <li><a href="#about">Export</a></li>
+            <li><a href="#why-choose">Global Reach</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Our Products -->
+        <div class="footer-col footer-col--products">
+          <h4 class="footer-col__title">Our Products</h4>
+          <ul class="footer-links">
+            <li><a href="#products">Food Products</a></li>
+            <li><a href="#products">Agricultural Products</a></li>
+            <li><a href="#products">Textiles &amp; Apparel</a></li>
+            <li><a href="#products">Electronics</a></li>
+            <li><a href="#products">Handicrafts</a></li>
+            <li><a href="#products">Machinery</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact Us -->
+        <div class="footer-col footer-col--contact">
+          <h4 class="footer-col__title">Contact Us</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Chennai, Tamil Nadu, India</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <a href="tel:+919087305577" class="footer-contact-link footer-contact-phone">+91 90873 05577</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:asn.importsandexports@gmail.com" class="footer-contact-link footer-contact-email">asn.importsandexports@gmail.com</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 5: Follow Us & Slogan -->
+        <div class="footer-col footer-col--follow">
+          <div class="footer-follow-group">
+            <h4 class="footer-col__title">Follow Us</h4>
+            <div class="footer-socials">
+              <a href="https://www.linkedin.com/in/asn-imports-and-exports-423b40431?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.764-.783 1.75 1.764 1.75 1.764-.783 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+              <a href="https://instagram.com/asn.importsandexports" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+              <a href="https://wa.me/919087305577?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%20ASN%20Imports%20%26%20Exports." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.031 0C5.397 0 0.003 5.394 0.003 12.029c0 2.119.554 4.185 1.608 6.012L0 24l6.143-1.611c1.761.96 3.747 1.468 5.888 1.468 6.634 0 12.028-5.394 12.028-12.028C24.059 5.394 18.665 0 12.031 0zm.003 21.996c-1.802 0-3.568-.484-5.111-1.401l-.367-.218-3.799.997 1.014-3.704-.239-.38a9.96 9.96 0 0 1-1.529-5.261c0-5.524 4.494-10.018 10.031-10.018 5.536 0 10.03 4.494 10.03 10.018 0 5.525-4.494 10.019-10.03 10.019zm5.501-7.514c-.302-.151-1.785-.881-2.062-.981-.277-.101-.479-.151-.681.151-.202.302-.781.981-.958 1.183-.176.201-.353.226-.655.075-.302-.151-1.275-.47-2.428-1.498-.898-.8-1.504-1.788-1.68-2.09-.176-.302-.019-.465.132-.616.136-.136.302-.352.453-.529.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.076-.151-.681-1.642-.933-2.247-.245-.589-.494-.509-.68-.519-.176-.01-.377-.01-.579-.01-.201 0-.528.076-.805.377-.277.302-1.058 1.033-1.058 2.52 0 1.486 1.083 2.923 1.234 3.124.151.201 2.132 3.256 5.166 4.566.722.312 1.285.498 1.724.638.725.23 1.385.198 1.906.12.581-.087 1.785-.73 2.037-1.433.252-.704.252-1.308.176-1.434-.075-.126-.277-.201-.579-.352z"/></svg></a>
+              <a href="https://youtube.com/@asnimportsexports?si=Cxnlf0so5XXSGPom" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.376.55A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.376-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            </div>
+          </div>
+          <div class="footer-script-slogan">
+            <span>Global Trade</span>
+            <em>A Brighter Tomorrow</em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="wrap site-footer__bottom-inner">
+        <p>&copy; <span id="year">2026</span> ASN Imports &amp; Exports. All Rights Reserved.</p>
+        <p class="made-in-india">
+          <span>Made in India</span>
+          <span class="sep">|</span>
+          <span>Trading for a Better Tomorrow</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== INTERACTIVE QUOTE / CONTACT MODAL ==================== -->
+  <div class="quote-modal" id="quoteModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="quote-modal__backdrop" id="modalBackdrop"></div>
+    <div class="quote-modal__dialog">
+      <button class="quote-modal__close" id="modalClose" aria-label="Close modal">&times;</button>
+      
+      <div class="quote-modal__header">
+        <span class="section-tag">QUICK TRADE INQUIRY</span>
+        <h3 id="modalTitle" class="section-headline">Get a Custom Trade Quote</h3>
+        <p>Tell us what products you need to import or export and our global trade specialists will respond promptly.</p>
+      </div>
+
+      <form class="quote-form" id="quoteForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="quoteName">Full Name</label>
+            <input type="text" id="quoteName" name="name" required />
+            <span class="field-error" id="quoteNameError"></span>
+          </div>
+          <div class="form-group">
+            <label for="quoteEmail">Business Email</label>
+            <input type="email" id="quoteEmail" name="email" required />
+            <span class="field-error" id="quoteEmailError"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="quotePhone">Phone / WhatsApp</label>
+            <input type="tel" id="quotePhone" name="phone" required />
+            <span class="field-error" id="quotePhoneError"></span>
+          </div>
+          <div class="form-group">
+            <label for="quoteCategory">Product Category</label>
+            <select id="quoteCategory" name="category" required>
+              <option value="" disabled selected></option>
+              <option value="Food Products">Food Products &amp; Spices</option>
+              <option value="Agricultural Products">Agricultural Commodities</option>
+              <option value="Textiles & Apparel">Textiles &amp; Apparel</option>
+              <option value="Electronics & Accessories">Electronics &amp; Accessories</option>
+              <option value="Handicrafts & Home Decor">Handicrafts &amp; Home Decor</option>
+              <option value="Machinery & Industrial Products">Machinery &amp; Industrial Products</option>
+              <option value="Other">Other Global Sourcing</option>
+            </select>
+            <span class="field-error" id="quoteCategoryError"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="quoteMessage">Shipment / Sourcing Requirements</label>
+          <textarea id="quoteMessage" name="message" rows="3" required></textarea>
+          <span class="field-error" id="quoteMessageError"></span>
+        </div>
+
+        <button type="submit" class="btn btn--gold btn--full">
+          <span>Submit Quote Request</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <p class="form-feedback" id="formFeedback"></p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
